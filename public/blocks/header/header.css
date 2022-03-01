@@ -1,0 +1,14 @@
+.header {
+    display: flex;
+    height: 74px;
+    padding-top: 45px;
+    border-bottom: 1px solid #545454;
+
+}
+@media (max-width: 1024px) {
+    .header {
+        height: 74px;
+        padding: 28px 27px 0;
+        margin: 0 -16px 0;
+    } 
+ }
