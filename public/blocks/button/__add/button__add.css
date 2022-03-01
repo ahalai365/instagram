@@ -1,3 +1,7 @@
 .button__add {
-    
+    width: 150px;
+    height: 50px;
+    background-color: white;
+    align-content: end;
+    margin-left: 10px;
 }
