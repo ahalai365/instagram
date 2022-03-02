@@ -11,9 +11,10 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
-@media (max-width: 1030px) {
+@media (max-width: 630px) {
     .elements {
         display: flex;
         flex-direction: column;
+        padding-top: 36px;
     }
 }

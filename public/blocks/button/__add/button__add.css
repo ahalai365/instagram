@@ -1,7 +1,15 @@
 .button__add {
     width: 150px;
     height: 50px;
-    background-color: white;
+    min-width: 100px;
     align-content: end;
-    margin-left: 10px;
+    margin-left: 5px;
+    border: 1px solid white;
+    object-fit: none;
+}
+@media (max-width: 630px) {
+    .button__add {
+        margin-top: 36px;
+        width: 100%;
+    }
 }

@@ -3,3 +3,10 @@
     font-size: 42px;
     line-height: 48px;
 }
+@media (max-width: 630px) {
+    .profile-info__name {
+        font-weight: 500;
+        font-size: 27px;
+        line-height: 32,68px;
+    }
+}

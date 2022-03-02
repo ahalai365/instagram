@@ -3,9 +3,9 @@
     margin: 0 auto;
     padding: 0 200px 0;
 }
-@media (max-width: 1030px) {
+@media (max-width: 990px) {
     .page {
-        max-width: 320px;
+        max-width: 990px;
         margin: 0 auto;
         padding: 0 19px 0;
     }

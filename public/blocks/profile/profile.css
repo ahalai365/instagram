@@ -5,3 +5,15 @@
     align-items: center;
     justify-content: space-between;
 }
+.profile * {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+@media (max-width: 630px) {
+    .profile {
+        padding-top: 42px;
+
+        flex-direction: column;
+    } 
+}
