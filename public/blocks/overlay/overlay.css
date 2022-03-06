@@ -1,10 +1,10 @@
 .overlay {
     display: none;
     position:absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: -9999px;
+    left: -9999px;
+    right: -9999px;
+    bottom: -9999px;
     opacity: 0.5;
     background-color: #2A2C2F;
     z-index: 2;
