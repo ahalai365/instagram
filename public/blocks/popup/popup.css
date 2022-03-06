@@ -1,9 +1,29 @@
 .popup {
-   width: 430px;
-   height: 330px;
    padding: 34px 36px 37px;
    margin: auto;
    background-color: white;
    color: black;
    border-radius: 10px;
+
+   position: fixed;
+   z-index: 3;
+   top: 30vh;
+   left: 30vw;
+   right: 30vw;
+   bottom: 30vh;
+
+   display: none;
+   flex-direction: column;
+   justify-content: space-between;
+}
+@media (max-width: 810px) {
+   .popup {
+       height: 322px;
+       margin: 0 auto;
+       padding: 25px 22px;
+       top: 30vh;
+       left: 19px;
+       right: 19px;
+       bottom: 30vh;
+   }
 }

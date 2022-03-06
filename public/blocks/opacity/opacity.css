@@ -1,0 +1,17 @@
+.opacity {
+    transition-property: opacity;
+    transition-duration: 0.1s;
+    transition-timing-function: linear;
+    transition-delay: 0s;
+
+    cursor: pointer;
+}
+.opacity:hover {
+    opacity: 0.5;
+}
+.opacity .button__like, .opacity:hover {
+    opacity: 0.6;
+}
+.opacity .button__save, .opacity:hover {
+    opacity: 0.8;
+}

@@ -1,3 +1,25 @@
 .button__close {
-    
+    position: absolute;
+    top: -42px;
+    right: -44px;
+    width: 32px;
+}
+@media (max-width: 1000px) {
+    .popup-view .button__close {
+        top: -50px;
+        right: 0;
+    }
+}
+@media (max-width: 800px) {
+    .popup .button__close {
+        top: -50px;
+        right: 0;
+    }
+}
+@media (max-width: 630px) {
+    .button__close {
+        top: -50px;
+        right: 0;
+        width: 20px;
+    }
 }

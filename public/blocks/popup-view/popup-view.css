@@ -1,0 +1,9 @@
+.popup-view {
+    position: fixed;
+    top: 60px;
+    left: 80px;
+    right: 80px;
+    
+    display: none;
+    z-index: 3;
+}

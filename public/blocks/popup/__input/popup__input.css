@@ -1,8 +1,12 @@
-.popup-add__input {
+.popup__input {
     font-weight: 400;
     font-size: 14px;
     line-height: 16.94px;
     
     margin-bottom: 30px;
+    border: none;
     border-bottom: 1px solid #000000;
+}
+.popup__input:focus {
+    border-bottom: 1px solid rgb(49, 102, 214);
 }
