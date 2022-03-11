@@ -1,9 +1,0 @@
-.element__footer {
-    background-color: white;
-    padding: 25px 30px 31px 21px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    overflow: hidden;
-    white-space: nowrap;
-}

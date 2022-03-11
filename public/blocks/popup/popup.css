@@ -1,6 +1,5 @@
 .popup {
    padding: 34px 36px 37px;
-   margin: auto;
    background-color: white;
    color: black;
    border-radius: 10px;
@@ -10,12 +9,10 @@
    top: 30vh;
    left: 35vw;
    right: 35vw;
-   bottom: 30vh;
 
-   display: none;
-   flex-direction: column;
-   justify-content: space-between;
+   transform: translateY(-200%);
 }
+
 @media (max-width: 810px) {
    .popup {
        height: 322px;
@@ -24,6 +21,5 @@
        top: 30vh;
        left: 19px;
        right: 19px;
-       bottom: 30vh;
    }
 }

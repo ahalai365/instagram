@@ -15,57 +15,57 @@
             </header>
             <div class="content">
                 <section class="profile">
-                    <img class="avatar" src="./images/avatar.png">
-                    <div class="profile-info">
-                        <div class="profile-info__title">
-                            <h1 class="profile-info__name">Жак-Ив Кусто</h1>
-                            <label for="edit"><img class="button__edit opacity" src="./images/edit.png"></label>
+                    <img class="profile__avatar" src="./images/avatar.png">
+                    <div class="profile__info">
+                        <div class="profile__title">
+                            <h1 class="profile__name">Жак-Ив Кусто</h1>
+                            <label for="edit"><img class="profile__edit opacity" src="./images/edit.png"></label>
                         </div>
-                        <h2 class="profile-info__subtitle">Исследователь океана</h2>
+                        <h2 class="profile__subtitle">Исследователь океана</h2>
                     </div>
-                    <label for="new"><img class="button__add opacity" src="./images/Add.png"></label>
+                    <label for="new"><img class="profile__add opacity" src="./images/Add.png"></label>
                 </section>
                 <section class="elements">
-                    <div class="element">
-                        <label for="view"><img class="element__img" src="./images/1.png" alt="Карачаевск"></label>
-                        <div class="element__footer">
-                            <h3 class="element__title">Карачаевск</h3>
-                            <img class="button__like opacity button__like_active" src="./images/like.png">
+                    <div class="elements__item">
+                        <label for="view"><img class="elements__img" src="./images/1.png" alt="Карачаевск"></label>
+                        <div class="elements__footer">
+                            <h3 class="elements__title">Карачаевск</h3>
+                            <img class="elements__like elements__like_active opacity" src="./images/like.png">
                         </div>
                     </div>
-                    <div class="element">
-                        <label for="view"><img class="element__img" src="./images/2.png" alt="Гора Эльбрус"></label>
-                        <div class="element__footer">
-                            <h3 class="element__title">Гора Эльбрус</h3>
-                            <img class="button__like opacity" src="./images/like.png">
+                    <div class="elements__item">
+                        <label for="view"><img class="elements__img" src="./images/2.png" alt="Гора Эльбрус"></label>
+                        <div class="elements__footer">
+                            <h3 class="elements__title">Гора Эльбрус</h3>
+                            <img class="elements__like elements__like_active opacity" src="./images/like.png">
                         </div>
                     </div>
-                    <div class="element">
-                        <label for="view"><img class="element__img" src="./images/3.png" alt="Домбай"></label>
-                        <div class="element__footer">
-                            <h3 class="element__title">Домбай</h3>
-                            <img class="button__like opacity" src="./images/like.png">
+                    <div class="elements__item">
+                        <label for="view"><img class="elements__img" src="./images/3.png" alt="Домбай"></label>
+                        <div class="elements__footer">
+                            <h3 class="elements__title">Домбай</h3>
+                            <img class="elements__like elements__like_active opacity" src="./images/like.png">
                         </div>
                     </div>
-                    <div class="element">
-                        <label for="view"><img class="element__img" src="./images/2.png" alt="Гора Эльбрус"></label>
-                        <div class="element__footer">
-                            <h3 class="element__title">Гора Эльбрус</h3>
-                            <img class="button__like opacity" src="./images/like.png">
+                    <div class="elements__item">
+                        <label for="view"><img class="elements__img" src="./images/2.png" alt="Гора Эльбрус"></label>
+                        <div class="elements__footer">
+                            <h3 class="elements__title">Гора Эльбрус</h3>
+                            <img class="elements__like elements__like_active opacity" src="./images/like.png">
                         </div>
                     </div>
-                    <div class="element">
-                        <label for="view"><img class="element__img" src="./images/3.png" alt="Домбай"></label>
-                        <div class="element__footer">
-                            <h3 class="element__title">Домбай</h3>
-                            <img class="button__like opacity" src="./images/like.png">
+                    <div class="elements__item">
+                        <label for="view"><img class="elements__img" src="./images/3.png" alt="Домбай"></label>
+                        <div class="elements__footer">
+                            <h3 class="elements__title">Домбай</h3>
+                            <img class="elements__like elements__like_active opacity" src="./images/like.png">
                         </div>
                     </div>
-                    <div class="element">
-                        <label for="view"><img class="element__img" src="./images/1.png" alt="Карачаево-Черкесская Республика"></label>
-                        <div class="element__footer">
-                            <h3 class="element__title">Карачаево-Черкесская Республика</h3>
-                            <img class="button__like opacity" src="./images/like.png">
+                    <div class="elements__item">
+                        <label for="view"><img class="elements__img" src="./images/1.png" alt="Карачаево-Черкесская Республика"></label>
+                        <div class="elements__footer">
+                            <h3 class="elements__title">Карачаево-Черкесская Республика</h3>
+                            <img class="elements__like elements__like_active opacity" src="./images/like.png">
                         </div>
                     </div>
                 </section>
@@ -75,27 +75,30 @@
             </div>
             <input class="check" id="edit" type="checkbox">
             <div class="popup">
-                <div class="popup__title">Редактировать профиль</div>
-                <input type="text" class="popup__input" value="Жак-Ив Кусто" placeholder="Укажате имя">
-                <input type="text" class="popup__input" value="Исследователь океана"
-                placeholder="Укажите деятильность">
-                <button class="button__save opacity">Сохранить</button>
-                <label for="edit"><img class="button__close button__close_disable opacity" src="./images/Close.png"></label>
+                <div class="popup__content">
+                    <div class="popup__title">Редактировать профиль</div>
+                    <input type="text" class="popup__input" value="Жак-Ив Кусто" placeholder="Укажате имя">
+                    <input type="text" class="popup__input" value="Исследователь океана" placeholder="Укажите деятильность">
+                    <button class="popup__save opacity">Сохранить</button>
+                </div>
+                <label for="edit"><img class="popup__close opacity" src="./images/Close.png"></label>
             </div>
             <input class="check" id="new" type="checkbox">
             <div class="popup">
-                <div class="popup__title">Добавить место</div>
-                <input type="text" class="popup__input" placeholder="Укажате название">
-                <input type="text" class="popup__input" placeholder="Укажите путь">
-                <button class="button__save opacity">Сохранить</button>
-                <label for="new"><img class="button__close button__close_disable opacity" src="./images/Close.png"></label>
+                <div class="popup__content">
+                    <div class="popup__title">Добавить место</div>
+                    <input type="text" class="popup__input" placeholder="Укажате название">
+                    <input type="text" class="popup__input" placeholder="Укажите путь">
+                    <button class="popup__save opacity">Сохранить</button>
+                </div>
+                <label for="new"><img class="popup__close opacity" src="./images/Close.png"></label>
             </div>
             <input class="check" id="view" type="checkbox">
             <div class="popup-view">
                 <img class="popup-view__img" src="./images/1.png" alt="???">
-                <label for="view"><img class="button__close button__close_disable opacity" src="./images/Close.png"></label>
+                <label for="view"><img class="popup__close opacity" src="./images/Close.png"></label>
             </div>
-            <div class="overlay"></div>
+            <div class="popup__overlay"></div>
         </div>
     </body>
 </html>

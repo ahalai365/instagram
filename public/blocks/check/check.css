@@ -1,11 +1,15 @@
 .check {
     display: none;
 }
-.check:checked+.popup, .overlay {
-    display: flex;
-}.check:checked+.popup-view {
-    display: flex;
+
+.check:checked + .popup {
+    transform: translateY(0);
 }
-.check:checked~.overlay {
-    display: flex;
+
+.check:checked + .popup-view {
+    transform: translateY(0);
+}
+
+.check:checked ~ .popup__overlay {
+    display: block;
 }
