@@ -1,7 +1,33 @@
 .popup__content {
     margin: auto;
+    background-color: white;
+    color: black;
+    min-width: 430px;
+    padding: 34px 36px 37px;
+    border-radius: 10px;
+
+    z-index: 2;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    
+    position: fixed;
+    top: 30vh;
+    left: 30vw;
+    right: 30vw;
 }
+
+@media (max-width: 810px) {
+    .popup__content {
+        height: 322px;
+        margin: 0 auto;
+        padding: 25px 22px;
+        top: 30vh;
+        left: 19px;
+        right: 19px;
+
+        min-width: 282px;
+    }
+ }
+ 

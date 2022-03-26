@@ -1,9 +1,8 @@
-.popup-view {
+.popup__view {
     position: fixed;
     top: 60px;
     left: 80px;
     right: 80px;
     
-    z-index: 3;
-    transform: translateY(-200%);
+    z-index: 2;
 }
