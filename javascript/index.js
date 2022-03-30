@@ -39,13 +39,15 @@ const likeButton = document.querySelector('.elements__like');
 const LIKE_ACTIVE_CLASS = 'elements__like_active';
 
 function likeClickHandler(event) {
-  
-  if (!event.target.classList.contains('elements__like_active')) {
-    event.target.classList.add(LIKE_ACTIVE_CLASS);
-    event.target.setAttribute('src','./images/like.png')
-  } else {
-    event.target.classList.remove(LIKE_ACTIVE_CLASS);
-    event.target.setAttribute('src','./images/dislike.png')
+  if (event.target.classList.contains('elements__like')) {
+    if (!event.target.classList.contains('elements__like_active')) {
+      console.log('Click on', event.target);
+      event.target.classList.add(LIKE_ACTIVE_CLASS);
+      event.target.setAttribute('src','./images/like.png')
+    } else {
+      event.target.classList.remove(LIKE_ACTIVE_CLASS);
+      event.target.setAttribute('src','./images/dislike.png')
+    }
   }
 }
 
