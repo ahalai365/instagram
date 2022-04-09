@@ -1,0 +1,5 @@
+.popup__close_view {
+    position: fixed;
+    top: 50px;
+    right: 240px;
+}

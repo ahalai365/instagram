@@ -5,7 +5,12 @@
     align-content: end;
     margin-left: 5px;
     border: 1px solid white;
-    object-fit: none;
+
+    background-color: black;
+    background-image: url(../../../../images/Add.png);
+    background-size: 18%;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 @media (max-width: 630px) {
     .profile__add {

@@ -14,8 +14,8 @@
     
     position: fixed;
     top: 30vh;
-    left: 30vw;
-    right: 30vw;
+    left: 35vw;
+    right: 35vw;
 }
 
 @media (max-width: 810px) {

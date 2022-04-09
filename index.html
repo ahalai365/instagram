@@ -9,6 +9,17 @@
         <title>Попапы</title>
     </head>
     <body>
+
+        <template id="element-template">
+            <div class="element">
+                <img class="element__img">
+                <div class="element__footer">
+                    <h3 class="element__title"></h3>
+                    <img class="element__like  opacity" src="./images/dislike.png">
+                </div>
+            </div>    
+        </template>
+        
         <div class="page">
             <header class="header">
                 <img class="logo" src="./images/logo.png">
@@ -19,86 +30,87 @@
                     <div class="profile__info">
                         <div class="profile__title">
                             <h1 class="profile__name">Жак-Ив Кусто</h1>
-                            <img class="profile__edit opacity" src="./images/edit.png">
+                            <button class="profile__edit opacity"></button>
                         </div>
                         <h2 class="profile__subtitle">Исследователь океана</h2>
                     </div>
-                    <img class="profile__add opacity" src="./images/Add.png">
+                    <button class="profile__add opacity"></button>
                 </section>
                 <section class="elements">
-                    <div class="elements__item">
-                        <img class="elements__img" src="./images/1.png" alt="Карачаевск">
-                        <div class="elements__footer">
-                            <h3 class="elements__title">Карачаевск</h3>
-                            <img class="elements__like  opacity" src="./images/dislike.png">
+<!-- 
+                    <div class="element">
+                        <img class="element__img" src="./images/1.png" alt="Карачаевск">
+                        <div class="element__footer">
+                            <h3 class="element__title">Карачаевск</h3>
+                            <button class="element__like  opacity"></button>
                         </div>
                     </div>
-                    <div class="elements__item">
-                        <img class="elements__img" src="./images/2.png" alt="Гора Эльбрус">
-                        <div class="elements__footer">
-                            <h3 class="elements__title">Гора Эльбрус</h3>
-                            <img class="elements__like  opacity" src="./images/dislike.png">
+                    <div class="element">
+                        <img class="element__img" src="./images/2.png" alt="Гора Эльбрус">
+                        <div class="element__footer">
+                            <h3 class="element__title">Гора Эльбрус</h3>
+                            <img class="element__like  opacity" src="./images/dislike.png">
                         </div>
                     </div>
-                    <div class="elements__item">
-                        <img class="elements__img" src="./images/3.png" alt="Домбай">
-                        <div class="elements__footer">
-                            <h3 class="elements__title">Домбай</h3>
-                            <img class="elements__like  opacity" src="./images/dislike.png">
+                    <div class="element">
+                        <img class="element__img" src="./images/3.png" alt="Домбай">
+                        <div class="element__footer">
+                            <h3 class="element__title">Домбай</h3>
+                            <img class="element__like  opacity" src="./images/dislike.png">
                         </div>
                     </div>
-                    <div class="elements__item">
-                        <img class="elements__img" src="./images/2.png" alt="Гора Эльбрус">
-                        <div class="elements__footer">
-                            <h3 class="elements__title">Гора Эльбрус</h3>
-                            <img class="elements__like  opacity" src="./images/dislike.png">
+                    <div class="element">
+                        <img class="element__img" src="./images/2.png" alt="Гора Эльбрус">
+                        <div class="element__footer">
+                            <h3 class="element__title">Гора Эльбрус</h3>
+                            <img class="element__like  opacity" src="./images/dislike.png">
                         </div>
                     </div>
-                    <div class="elements__item">
-                        <img class="elements__img" src="./images/3.png" alt="Домбай">
-                        <div class="elements__footer">
-                            <h3 class="elements__title">Домбай</h3>
-                            <img class="elements__like  opacity" src="./images/dislike.png">
+                    <div class="element">
+                        <img class="element__img" src="./images/3.png" alt="Домбай">
+                        <div class="element__footer">
+                            <h3 class="element__title">Домбай</h3>
+                            <img class="element__like  opacity" src="./images/dislike.png">
                         </div>
                     </div>
-                    <div class="elements__item">
-                        <img class="elements__img" src="./images/1.png" alt="Карачаево-Черкесская Республика">
-                        <div class="elements__footer">
-                            <h3 class="elements__title">Карачаево-Черкесская Республика</h3>
-                            <img class="elements__like  opacity" src="./images/dislike.png">
+                    <div class="element">
+                        <img class="element__img" src="./images/1.png" alt="Карачаево-Черкесская Республика">
+                        <div class="element__footer">
+                            <h3 class="element__title">Карачаево-Черкесская Республика</h3>
+                            <img class="element__like  opacity" src="./images/dislike.png">
                         </div>
-                    </div>
+                    </div> -->
                 </section>
                 <footer class="footer">
                     <div class="footer__copy">&copy; 2020 Mesto Russia</div>
                 </footer>
             </div>
             <div class="popup popup_edit">
+                <div class="popup__overlay"></div>
                 <div class="popup__content">
                     <div class="popup__title">Редактировать профиль</div>
                     <input type="text" class="popup__input" value="Жак-Ив Кусто" placeholder="Укажате имя">
                     <input type="text" class="popup__input" value="Исследователь океана" placeholder="Укажите деятильность">
                     <button class="popup__save opacity">Сохранить</button>
-                    <img class="popup__close opacity" src="./images/Close.png">
+                    <button class="popup__close opacity"></button>
                 </div>
-                <div class="popup__overlay"></div>
             </div>
             <div class="popup popup_add">
+                <div class="popup__overlay"></div>
                 <div class="popup__content">
                     <div class="popup__title">Добавить место</div>
                     <input type="text" class="popup__input" placeholder="Укажате название">
                     <input type="text" class="popup__input" placeholder="Укажите путь">
                     <button class="popup__save opacity">Сохранить</button>
-                    <img class="popup__close opacity" src="./images/Close.png">
-                </div>
-                <div class="popup__overlay"></div>
+                    <button class="popup__close opacity"></button>
+                </div>  
             </div>
             <div class="popup popup_view">
+                <div class="popup__overlay"></div>
                 <div class="popup__view">
                     <img class="popup__img" src="./images/1.png" alt="???">
-                    <img class="popup__close opacity" src="./images/Close.png">
+                    <button class="popup__close popup__close_view opacity"></button>
                 </div>
-                <div class="popup__overlay"></div>
             </div>
         </div>
         <script src="./javascript/index.js" type="text/javascript" language="javascript"></script>

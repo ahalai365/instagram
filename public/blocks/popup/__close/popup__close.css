@@ -1,8 +1,17 @@
 .popup__close {
     position: absolute;
-    top: -42px;
-    right: -44px;
+    top: -40px;
+    right: -40px;
+
     width: 32px;
+    height: 32px;
+    border: none;
+
+    background-color: #222222;
+    background-image: url(../../../../images/Close.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 @media (max-width: 1000px) {
     .popup-view .popup__close {

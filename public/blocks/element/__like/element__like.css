@@ -1,0 +1,12 @@
+.element__like {
+    width: 22px;
+    height: 19px;
+
+    background-image: url(./../../../../images/dislike.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: none;
+    outline: none;
+    background-color: white;
+}
