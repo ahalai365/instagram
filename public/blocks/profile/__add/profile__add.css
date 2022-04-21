@@ -16,5 +16,6 @@
     .profile__add {
         margin-top: 36px;
         width: 100%;
+        background-size: 16px;
     }
 }

@@ -7,25 +7,13 @@
     height: 32px;
     border: none;
 
-    background-color: #222222;
+    background-color: transparent;
     background-image: url(../../../../images/Close.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center center;
 }
-@media (max-width: 1000px) {
-    .popup-view .popup__close {
-        top: -50px;
-        right: 0;
-    }
-}
-@media (max-width: 800px) {
-    .popup .popup__close {
-        top: -50px;
-        right: 0;
-    }
-}
-@media (max-width: 630px) {
+@media (max-width: 600px) {
     .popup__close {
         top: -50px;
         right: 0;

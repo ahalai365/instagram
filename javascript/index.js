@@ -1,38 +1,28 @@
 const POPUP_OPEN_CLASS = 'popup_active';
 
-// попап добавляющий места
-const addButton = document.querySelector('.profile__add');
+// попап мест и профиля
 const popupAdd = document.querySelector('.popup_add');
+const buttonAdd = document.querySelector('.profile__add');
 const popupAddCloseButton = popupAdd.querySelector('.popup__close');
 
-function addButtonClickHandler(event) {
-  popupAdd.classList.add(POPUP_OPEN_CLASS);
-}
-
-function closePopupAddHandler(event) {
-  popupAdd.classList.remove(POPUP_OPEN_CLASS);
-}
-
-addButton.addEventListener('click', addButtonClickHandler);
-popupAddCloseButton.addEventListener('click', closePopupAddHandler);
-
-
-// попап изменяющий профиль
-const editButton = document.querySelector('.profile__edit');
 const popupEdit = document.querySelector('.popup_edit');
+const buttonEdit = document.querySelector('.profile__edit');
 const popupEditCloseButton = popupEdit.querySelector('.popup__close');
 
-function editButtonClickHandler(event) {
-  popupEdit.classList.add(POPUP_OPEN_CLASS);
+
+
+function openPopup(targetPopup) {
+  targetPopup.classList.add(POPUP_OPEN_CLASS);
 }
 
-function closePopupEditHandler(event) {
-  popupEdit.classList.remove(POPUP_OPEN_CLASS);
+function closePopup(targetPopup) {
+  targetPopup.classList.remove(POPUP_OPEN_CLASS);
 }
 
-editButton.addEventListener('click', editButtonClickHandler);
-popupEditCloseButton.addEventListener('click', closePopupEditHandler);
-
+buttonAdd.addEventListener('click', ()=>openPopup(popupAdd));
+buttonEdit.addEventListener('click', ()=>openPopup(popupEdit));
+popupAddCloseButton.addEventListener('click', ()=>closePopup(popupAdd));
+popupEditCloseButton.addEventListener('click', ()=>closePopup(popupEdit));
 
 // лукасы
 const likeButton = document.querySelector('.element__like');
@@ -63,27 +53,8 @@ function openPopupViewHandler(event) {
   }
 }
 
-function closePopupViewHandler(event) {
-  popupView.classList.remove(POPUP_OPEN_CLASS);
-}
-
-popupViewCloseButton.addEventListener('click', closePopupViewHandler);
+popupViewCloseButton.addEventListener('click', ()=>closePopup(popupView));
 document.addEventListener('click', openPopupViewHandler);
-
-// тоже самое что и сверху только по красоте. Стрелки в листнеры ещё ок, обычные фун-ии лучше по православному
-
-// document.addEventListener('click', (event) => {
-//   console.log('Click on', event.target);
-//   if (event.target.classList.contains('elements__img')) {
-//     console.log('Click on card!', popupView, popupViewImg);
-//     popupView.classList.add(POPUP_OPEN_CLASS);
-//     popupViewImg.src = event.target.src;
-//   }
-// });
-
-// popupView.querySelector('.popup__close').addEventListener('click', () => {
-//   popupView.classList.remove(POPUP_OPEN_CLASS);
-// });
 
 //База фотокарточек
 const data = [
@@ -161,9 +132,9 @@ function createElement ({title, src}) {
 // 2. Через шаблон (template)
 function createElement2 ({title, src}) {
   const element = document.querySelector('#element-template').content.children[0].cloneNode(true);
-  const elementFooter = element.children[1]
-  const elementImage = element.children[0]
-  const elementTitle = elementFooter.children[0]
+  const elementFooter = element.querySelector('.element__footer');
+  const elementImage = element.querySelector('.element__img');
+  const elementTitle = elementFooter.querySelector('.element__title');
 
   elementImage.setAttribute('src', src);
   elementImage.setAttribute('alt', title);

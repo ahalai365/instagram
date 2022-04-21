@@ -5,7 +5,7 @@
 
     margin-bottom: 54px;
 }
-@media (max-width: 990px) {
+@media (max-width: 600px) {
     .popup__title {
         font-weight: 900;
         font-size: 18px;
