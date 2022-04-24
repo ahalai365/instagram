@@ -6,6 +6,7 @@
     margin-bottom: 30px;
     border: none;
     border-bottom: 1px solid #000000;
+    width: 100%;
 }
 .popup__input:focus {
     border-bottom: 1px solid rgb(49, 102, 214);
