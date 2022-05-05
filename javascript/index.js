@@ -15,8 +15,8 @@ const buttonAdd = document.querySelector('.profile__add');
 const popupAddCloseButton = popupAdd.querySelector('.popup__close');
 
 buttonAdd.addEventListener('click', ()=> {
-  clearInput(title);
-  clearInput(src);
+  clearInput(placeName);
+  clearInput(placeBrowse);
   openPopup(popupAdd)
 });
 popupAddCloseButton.addEventListener('click', ()=>closePopup(popupAdd));
@@ -145,18 +145,50 @@ function createElement ({title, src}) {
 }
 
 //Инвалид инпут
-const POPUP_INPUT_INVALID = 'popup__input_invalid';
-
-function ivalidInput(currentInput) {
-  currentInput.classList.add(POPUP_INPUT_INVALID);
+function invalidInput(inputField, someText) {
+  let error = document.createElement('div');
+  error.className = 'popup__input_invalid';
+  error.innerHTML = someText;
+  inputField.parentElement.insertBefore(error, inputField.nextSibling);
 }
 
-function removeInvalid(currentInput) {
-  currentInput.classList.remove(POPUP_INPUT_INVALID);
+function removeInvalid(errors) {
+  errors = document.querySelectorAll('.popup__input_invalid');
+  for (let i = 0; i < errors.length; i++) {
+    errors[i].remove()
+  }
+}
+
+function createError (inputField, someText) {
+  let error = document.createElement('div');
+  error.className = 'popup__input_invalid';
+  inputField.parentElement.insertBefore(error, inputField.nextSibling);
+  error.innerHTML = someText; 
+}
+
+function stopThatShit () {
+  const check = document.querySelector('.popup__input_invalid');
+
+  if (check === null) {
+    closePopup(popupEdit);
+  } else {
+    return
+  }
 }
 //отчистка инпута
 function clearInput(currentInput) {
   currentInput.value = '';
+}
+
+//проверка полей
+function checkInput (inputFields, someText) {
+  for (let i = 0; i < inputFields.length; i++) {
+    if (inputFields[i].value) {
+      
+    } else { 
+      createError (inputFields[i], someText[i]);  
+    }
+  }
 }
 
 //Изменение профиля
@@ -164,91 +196,40 @@ function clearInput(currentInput) {
 const profileEditForm = document.forms.profileEditForm
 const profileName = document.querySelector('.profile__name');
 const profileSubtitle = document.querySelector('.profile__subtitle');
+const profileInputFields = document.querySelectorAll('.popup_edit .field');
 const profileEditName = profileEditForm.elements.profileName;
 const profileEditSubtitle = profileEditForm.elements.profileProfession;
 
+
 profileEditForm.addEventListener('submit', (e) => {
   e.preventDefault();
+  removeInvalid();
 
-  if (profileEditName.value === '') {
-    ivalidInput(profileEditName);
-    profileEditName.setAttribute('placeholder', 'Введите имя');
-    
-    removeInvalid(profileEditSubtitle)
-    if (profileEditSubtitle.value === '') {
-      ivalidInput(profileEditSubtitle);
-      profileEditSubtitle.setAttribute('placeholder', 'Укажите профессию');  
-    }
-    return
-
-  } else {
-
-    removeInvalid(profileEditName);
-    if (profileEditSubtitle.value === '') {
-      ivalidInput(profileEditSubtitle);
-      profileEditSubtitle.setAttribute('placeholder', 'Укажите профессию'); 
-
-      if (profileEditName.value === '') {
-        ivalidInput(profileEditName);
-        profileEditName.setAttribute('placeholder', 'Введите имя');
-      }
-      return
-    }
-  }
-
+  checkInput(profileInputFields, ['Укажите имя', 'Укажите деятельность']);
+  stopThatShit();
   profileName.textContent = profileEditName.value;
   profileSubtitle.textContent = profileEditSubtitle.value;
-
-  removeInvalid(profileEditSubtitle)
-  removeInvalid(profileEditName)
-  closePopup(popupEdit);
 });
 
 // добавить место
 const addForm = document.forms.addForm;
 const placeName = addForm.elements.placeName;
 const placeBrowse = addForm.elements.placeBrowse;
-const title = addForm.elements.placeName;
-const src = addForm.elements.placeBrowse;
+const addFormFields = document.querySelectorAll('.popup_add .field');
 
 addForm.addEventListener('submit', (e) => {
   e.preventDefault();
+  removeInvalid();
 
+  checkInput(addFormFields, ['Укажите название', 'Укажите путь']);
+  stopThatShit();
   const element = [{
       title: '',
       src: ''
     }];
 
-  element[0].title = title.value;
-  element[0].src = src.value;
-
-  if (title.value === '') {
-    ivalidInput(placeName);
-    title.setAttribute('placeholder', 'Введите название места');
-
-    removeInvalid(placeBrowse);
-    if ((src.value === '')) {
-      ivalidInput(placeBrowse);
-      src.setAttribute('placeholder', 'Укажите путь к фотографии');
-    }
-    return
-
-  } else {
-
-    removeInvalid(placeName);
-    if ((src.value === '')) {
-      ivalidInput(placeBrowse);
-      src.setAttribute('placeholder', 'Укажите путь к фотографии');
-      if (title.value === '') {
-        ivalidInput(placeName);
-        title.setAttribute('placeholder', 'Введите название места');
-      }
-      return
-    }
-  } 
+  element[0].title = placeName.value;
+  element[0].src = placeBrowse.value;
 
   createElements (element);
-  removeInvalid(placeName);
-  removeInvalid(placeBrowse);
-  closePopup(popupAdd);
 });

@@ -45,12 +45,12 @@
             <div class="popup popup_edit">
                 <div class="popup__overlay"></div>
                 <div class="popup__content">
+                    <div class="popup__title">Редактировать профиль</div>
 
-                    <form name="profileEditForm">
-                        <div class="popup__title">Редактировать профиль</div>
-                        <input name="profileName" type="text" class="popup__input" value="Жак-Ив Кусто" placeholder="Укажате имя">
-                        <input name="profileProfession" type="text" class="popup__input" value="Исследователь океана" placeholder="Укажите деятильность">
-                        <button name="submitProfile" class="popup__save opacity">Сохранить</button>
+                    <form name="profileEditForm">   
+                        <input name="profileName" type="text" class="popup__input field" value="Жак-Ив Кусто" placeholder="Укажате имя">
+                        <input name="profileProfession" type="text" class="popup__input field" value="Исследователь океана" placeholder="Укажите деятильность">
+                        <button name="submitProfile" type="submit" class="popup__save opacity">Сохранить</button>
                     </form>
 
                         <button class="popup__close opacity"></button>
@@ -62,9 +62,9 @@
                     <div class="popup__title">Добавить место</div>
                     
                     <form name="addForm">
-                        <input name="placeName" type="text" class="popup__input" placeholder="Укажате название">
-                        <input name="placeBrowse" type="text" class="popup__input" placeholder="Укажите путь">
-                        <button class="popup__save opacity">Сохранить</button>
+                        <input name="placeName" type="text" class="popup__input field" placeholder="Укажате название">
+                        <input name="placeBrowse" type="text" class="popup__input field" placeholder="Укажите путь">
+                        <button class="popup__save opacity" type="submit">Сохранить</button>
                     </form>
 
                     <button class="popup__close opacity"></button>
