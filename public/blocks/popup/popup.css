@@ -1,15 +1,12 @@
 .popup {
    position: fixed;
-   top: 195px;
-   left: 33vw;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
    
    display: none;
    flex-direction: row;
    justify-content: center;
-}
-
-@media (max-width: 1080px) {
-   .popup {
-      left: 28vw;
-   }
+   align-items: center;
 }
