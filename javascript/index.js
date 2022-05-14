@@ -144,6 +144,75 @@ function createElement ({title, src}) {
   return element;
 }
 
+//Изменение профиля
+const profileEditForm = document.forms.profileEditForm
+const profileName = document.querySelector('.profile__name');
+const profileSubtitle = document.querySelector('.profile__subtitle');
+const profileInputFields = document.querySelectorAll('.popup_edit .field');
+const profileEditName = profileEditForm.elements.profileName;
+const profileEditSubtitle = profileEditForm.elements.profileProfession;
+
+let checkMassive = [];
+
+profileEditName.oninput = function() {
+  checkMassive = [];
+  // removeError(profileEditName);
+  checkInput (profileEditName, 'Укажите имя')
+  checkInputValueName(profileEditName, 'Имя слишком короткое', 'Имя слишком длинное');
+  inActiveButton (profileEditForm);
+};
+
+profileEditSubtitle.oninput = function() {
+  checkMassive = [];
+  // removeError(profileEditSubtitle);
+  checkInput (profileEditSubtitle, 'Укажите профессию')
+  checkInputValueSubtitle(profileEditSubtitle, 'Слишком короткое название');
+  inActiveButton (profileEditForm);
+};
+
+profileEditForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  console.log(checkMassive)
+  if (checkMassive.some(function(e) {return e === false})) {
+    return
+  }
+
+  profileName.textContent = profileEditName.value;
+  profileSubtitle.textContent = profileEditSubtitle.value;
+
+  closePopup(popupEdit);
+});
+
+// добавить место
+const addForm = document.forms.addForm;
+const placeName = addForm.elements.placeName;
+const placeBrowse = addForm.elements.placeBrowse;
+const addFormFields = document.querySelectorAll('.popup_add .field');
+
+addForm.addEventListener('submit', (e) => {
+  checkMassive = [];
+
+  e.preventDefault();
+  removeError();
+
+  checkInput(addFormFields, ['Укажите название', 'Укажите путь']);
+  console.log(checkMassive);
+  if (checkMassive.some(function(e) {return e === false})) {
+    return
+  }
+
+  const element = [{
+      title: '',
+      src: ''
+    }];
+
+  element[0].title = placeName.value;
+  element[0].src = placeBrowse.value;
+
+  createElements (element);
+  closePopup(popupAdd);
+});
+
 //Инвалид инпут
 function removeError(targetInput) {
   targetInput.classList.remove('popup__input_invalid');
@@ -214,72 +283,3 @@ function checkInputValueSubtitle (inputField, someText) {
     checkMassive.push(true); 
   }
 }
-
-//Изменение профиля
-const profileEditForm = document.forms.profileEditForm
-const profileName = document.querySelector('.profile__name');
-const profileSubtitle = document.querySelector('.profile__subtitle');
-const profileInputFields = document.querySelectorAll('.popup_edit .field');
-const profileEditName = profileEditForm.elements.profileName;
-const profileEditSubtitle = profileEditForm.elements.profileProfession;
-
-let checkMassive = [];
-
-profileEditName.oninput = function() {
-  checkMassive = [];
-  // removeError(profileEditName);
-  checkInput (profileEditName, 'Укажите имя')
-  checkInputValueName(profileEditName, 'Имя слишком короткое', 'Имя слишком длинное');
-  inActiveButton (profileEditForm);
-};
-
-profileEditSubtitle.oninput = function() {
-  checkMassive = [];
-  // removeError(profileEditSubtitle);
-  checkInput (profileEditSubtitle, 'Укажите профессию')
-  checkInputValueSubtitle(profileEditSubtitle, 'Слишком короткое название');
-  inActiveButton (profileEditForm);
-};
-
-profileEditForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  console.log(checkMassive)
-  if (checkMassive.some(function(e) {return e === false})) {
-    return
-  }
-
-  profileName.textContent = profileEditName.value;
-  profileSubtitle.textContent = profileEditSubtitle.value;
-
-  closePopup(popupEdit);
-});
-
-// добавить место
-const addForm = document.forms.addForm;
-const placeName = addForm.elements.placeName;
-const placeBrowse = addForm.elements.placeBrowse;
-const addFormFields = document.querySelectorAll('.popup_add .field');
-
-addForm.addEventListener('submit', (e) => {
-  checkMassive = [];
-
-  e.preventDefault();
-  removeError();
-
-  checkInput(addFormFields, ['Укажите название', 'Укажите путь']);
-  console.log(checkMassive);
-  if (checkMassive.some(function(e) {return e === false})) {
-    return
-  }
-
-  const element = [{
-      title: '',
-      src: ''
-    }];
-
-  element[0].title = placeName.value;
-  element[0].src = placeBrowse.value;
-
-  createElements (element);
-  closePopup(popupAdd);
-});
