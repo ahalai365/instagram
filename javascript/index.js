@@ -150,9 +150,7 @@ function removeError(targetInput) {
 
   error = document.querySelectorAll('.popup__error');
   for (let i = 0; i < error.length; i++) {
-    if (targetInput) {
     error[i].remove()
-    }
   }
 }
 
@@ -249,7 +247,7 @@ profileEditForm.addEventListener('submit', (e) => {
   if (checkMassive.some(function(e) {return e === false})) {
     return
   }
-  removeError();
+
   profileName.textContent = profileEditName.value;
   profileSubtitle.textContent = profileEditSubtitle.value;
 
