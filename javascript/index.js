@@ -145,18 +145,34 @@ function createElement ({title, src}) {
 }
 
 //Инвалид инпут
-function removeInvalid(errors) {
-  errors = document.querySelectorAll('.popup__input_invalid');
-  for (let i = 0; i < errors.length; i++) {
-    errors[i].remove()
+function removeError(targetInput) {
+  targetInput.classList.remove('popup__input_invalid');
+
+  error = document.querySelectorAll('.popup__error');
+  for (let i = 0; i < error.length; i++) {
+    if (targetInput) {
+    error[i].remove()
+    }
   }
 }
 
 function createError (inputField, someText) {
+  inputField.classList.add('popup__input_invalid');
+
   let error = document.createElement('div');
-  error.className = 'popup__input_invalid popup__input';
+  error.className = 'popup__error';
   inputField.parentElement.insertBefore(error, inputField.nextSibling);
   error.innerHTML = someText; 
+}
+
+function inActiveButton (targetForm) {
+  const button = targetForm.querySelector('.popup__save');
+
+  if (checkMassive.some(function(e) {return e === false})) {
+    button.classList.add('opacity_invalid');
+  } else {
+    button.classList.remove('opacity_invalid');
+  }
 }
 
 //отчистка инпута
@@ -165,14 +181,13 @@ function clearInput(currentInput) {
 }
 
 //проверка полей на пустоту
-function checkInput (inputFields, someText) {
-  for (let i = 0; i < inputFields.length; i++) {
-    if (inputFields[i].value) {
-      checkMassive.push(true);  
-    } else { 
-      createError (inputFields[i], someText[i]);
-      checkMassive.push(false);
-    }
+function checkInput (inputField, someText) {
+  if (inputField.value) {
+    removeError(inputField);
+    checkMassive.push(true);  
+  } else {    
+    createError (inputField, someText);
+    checkMassive.push(false);
   }
 }
 
@@ -186,6 +201,7 @@ function checkInputValueName (inputField, someText1, someText2) {
       createError (inputField, someText2);
       checkMassive.push(false);
     } else {
+      removeError(inputField);
       checkMassive.push(true);
     }
   }
@@ -196,6 +212,7 @@ function checkInputValueSubtitle (inputField, someText) {
     createError (inputField, someText);
     checkMassive.push(false);
   } else {
+    removeError(inputField);
     checkMassive.push(true); 
   }
 }
@@ -207,22 +224,32 @@ const profileSubtitle = document.querySelector('.profile__subtitle');
 const profileInputFields = document.querySelectorAll('.popup_edit .field');
 const profileEditName = profileEditForm.elements.profileName;
 const profileEditSubtitle = profileEditForm.elements.profileProfession;
+
 let checkMassive = [];
 
-profileEditForm.addEventListener('submit', (e) => {
+profileEditName.oninput = function() {
   checkMassive = [];
-
-  e.preventDefault();
-  removeInvalid();
-
-  checkInput(profileInputFields, ['Укажите имя', 'Укажите деятельность']);
+  // removeError(profileEditName);
+  checkInput (profileEditName, 'Укажите имя')
   checkInputValueName(profileEditName, 'Имя слишком короткое', 'Имя слишком длинное');
-  checkInputValueSubtitle(profileEditSubtitle, 'Слишком короткое название');
+  inActiveButton (profileEditForm);
+};
 
+profileEditSubtitle.oninput = function() {
+  checkMassive = [];
+  // removeError(profileEditSubtitle);
+  checkInput (profileEditSubtitle, 'Укажите профессию')
+  checkInputValueSubtitle(profileEditSubtitle, 'Слишком короткое название');
+  inActiveButton (profileEditForm);
+};
+
+profileEditForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  console.log(checkMassive)
   if (checkMassive.some(function(e) {return e === false})) {
     return
   }
-
+  removeError();
   profileName.textContent = profileEditName.value;
   profileSubtitle.textContent = profileEditSubtitle.value;
 
@@ -239,7 +266,7 @@ addForm.addEventListener('submit', (e) => {
   checkMassive = [];
 
   e.preventDefault();
-  removeInvalid();
+  removeError();
 
   checkInput(addFormFields, ['Укажите название', 'Укажите путь']);
   console.log(checkMassive);
