@@ -15,8 +15,8 @@ const buttonAdd = document.querySelector('.profile__add');
 const popupAddCloseButton = popupAdd.querySelector('.popup__close');
 
 buttonAdd.addEventListener('click', ()=> {
-  clearInput(placeName);
-  clearInput(placeBrowse);
+  clearInput(inputPlaceName);
+  clearInput(inputPlaceBrowse);
   openPopup(popupAdd)
 });
 popupAddCloseButton.addEventListener('click', ()=>closePopup(popupAdd));
@@ -87,23 +87,21 @@ const data = [
   }
 ]
 
-
 // Создание фотокарточек
 const ELEMENTS = document.querySelector('.elements');
 
 function createElements (data) {
   for (let i = 0; i < data.length; i++) {
-    const newElement = createElement2 (data[i]);
-    // const newElement = createElement (data[i]);
+    const newElement = createElement (data[i]);
     ELEMENTS.append(newElement);
   }
 }
 
 createElements (data);
 
-// 1. Через шаблон (template)
-function createElement2 ({title, src}) {
-  const element = document.querySelector('#element-template').content.children[0].cloneNode(true);
+//Через шаблон (template)
+function createElement ({title, src}) {
+  const element = document.querySelector('#element-template').content.querySelector('.element').cloneNode(true);
   const elementFooter = element.querySelector('.element__footer');
   const elementImage = element.querySelector('.element__img');
   const elementTitle = elementFooter.querySelector('.element__title');
@@ -115,88 +113,38 @@ function createElement2 ({title, src}) {
   return element
 }
 
-// 2. Длинный заёбный способ
-function createElement ({title, src}) {
-  const element = document.createElement('div');
-  const elementImage = document.createElement('img');
-  const elementFooter = document.createElement('div');
-  const elementTitle = document.createElement('h3');
-  const elementButtonLike = document.createElement('button');
+//Изменение профиля, отправка формы
+const elementProfileName = document.querySelector('.profile__name');
+const elementProfileSubtitle = document.querySelector('.profile__subtitle');
 
-  element.classList.add('element');
-  
-  element.append(elementImage);
-  elementImage.classList.add('element__img');
-  elementImage.setAttribute('src', src);
-  elementImage.setAttribute('alt', title);
-
-  element.append(elementFooter);
-  elementFooter.classList.add('element__footer');
-
-  elementFooter.append(elementTitle);
-  elementTitle.classList.add('element__title');
-  elementTitle.textContent = title;
-
-  elementFooter.append(elementButtonLike);
-  elementButtonLike.classList.add('element__like');
-  elementButtonLike.classList.add('opacity');
-
-  return element;
-}
-
-//Изменение профиля
 const profileEditForm = document.forms.profileEditForm
-const profileName = document.querySelector('.profile__name');
-const profileSubtitle = document.querySelector('.profile__subtitle');
+const inputProfileName = profileEditForm.elements.inputProfileName;
+const inputProfileSubtitle = profileEditForm.elements.inputProfileSubtitle;
 const profileInputFields = document.querySelectorAll('.popup_edit .field');
-const profileEditName = profileEditForm.elements.profileName;
-const profileEditSubtitle = profileEditForm.elements.profileProfession;
-
-let checkMassive = [];
-
-profileEditName.oninput = function() {
-  checkMassive = [];
-  // removeError(profileEditName);
-  checkInput (profileEditName, 'Укажите имя')
-  checkInputValueName(profileEditName, 'Имя слишком короткое', 'Имя слишком длинное');
-  inActiveButton (profileEditForm);
-};
-
-profileEditSubtitle.oninput = function() {
-  checkMassive = [];
-  // removeError(profileEditSubtitle);
-  checkInput (profileEditSubtitle, 'Укажите профессию')
-  checkInputValueSubtitle(profileEditSubtitle, 'Слишком короткое название');
-  inActiveButton (profileEditForm);
-};
 
 profileEditForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  console.log(checkMassive)
+
   if (checkMassive.some(function(e) {return e === false})) {
     return
   }
 
-  profileName.textContent = profileEditName.value;
-  profileSubtitle.textContent = profileEditSubtitle.value;
+  elementProfileName.textContent = inputProfileName.value;
+  elementProfileSubtitle.textContent = inputProfileSubtitle.value;
 
   closePopup(popupEdit);
 });
 
-// добавить место
+// добавить место, отправка формы
 const addForm = document.forms.addForm;
-const placeName = addForm.elements.placeName;
-const placeBrowse = addForm.elements.placeBrowse;
+const inputPlaceName = addForm.elements.inputPlaceName;
+const inputPlaceBrowse = addForm.elements.inputPlaceBrowse;
 const addFormFields = document.querySelectorAll('.popup_add .field');
 
 addForm.addEventListener('submit', (e) => {
-  checkMassive = [];
-
   e.preventDefault();
   removeError();
 
-  checkInput(addFormFields, ['Укажите название', 'Укажите путь']);
-  console.log(checkMassive);
   if (checkMassive.some(function(e) {return e === false})) {
     return
   }
@@ -206,80 +154,110 @@ addForm.addEventListener('submit', (e) => {
       src: ''
     }];
 
-  element[0].title = placeName.value;
-  element[0].src = placeBrowse.value;
+  element[0].title = inputPlaceName.value;
+  element[0].src = inputPlaceBrowse.value;
 
   createElements (element);
   closePopup(popupAdd);
 });
-
-//Инвалид инпут
-function removeError(targetInput) {
-  targetInput.classList.remove('popup__input_invalid');
-
-  error = document.querySelectorAll('.popup__error');
-  for (let i = 0; i < error.length; i++) {
-    error[i].remove()
-  }
-}
-
-function createError (inputField, someText) {
-  inputField.classList.add('popup__input_invalid');
-
-  let error = document.createElement('div');
-  error.className = 'popup__error';
-  inputField.parentElement.insertBefore(error, inputField.nextSibling);
-  error.innerHTML = someText; 
-}
-
-function inActiveButton (targetForm) {
-  const button = targetForm.querySelector('.popup__save');
-
-  if (checkMassive.some(function(e) {return e === false})) {
-    button.classList.add('opacity_invalid');
-  } else {
-    button.classList.remove('opacity_invalid');
-  }
-}
 
 //отчистка инпута
 function clearInput(currentInput) {
   currentInput.value = '';
 }
 
+let checkMassive = [];
+
+//Валидация
+inputProfileName.addEventListener('input', () => {
+  removeError(inputProfileName);
+  inActiveButton(profileEditForm);
+
+  const value = inputProfileName.value;
+  const isEmpty = validateInputIsEmpty(value);
+  const isMinLength = validateMinLength(value, 3);
+  const isMaxLength = validateMaxLength(value, 20);
+  checkMassive = [isEmpty, isMinLength, isMaxLength];
+
+  if (!isEmpty) {
+    return createError (inputProfileName, 'Укажите имя');
+  }
+  if (!isMinLength) {
+    createError (inputProfileName, 'Имя слишком короткое');
+  }
+  if (!isMaxLength) {
+    createError (inputProfileName, 'Имя слишком длинное');
+  }
+
+ 
+});
+
+inputProfileSubtitle.addEventListener('input', () => {
+  removeError(inputProfileSubtitle);
+  inActiveButton(profileEditForm);
+
+  const value = inputProfileSubtitle.value;
+  const isEmpty = validateInputIsEmpty(value);
+  const isMinLength = validateMinLength(value, 3);
+  checkMassive = [isEmpty, isMinLength];
+
+  if (!isEmpty) {
+    createError (inputProfileSubtitle, 'Укажите деятельность');
+  }
+  if (!isMinLength) {
+    createError (inputProfileSubtitle, 'Слишком короткое');
+  }
+});
+
+//Создание и удаление ошибок
+function createError (targetInput, errorText) {
+  targetInput.classList.add('popup__input_invalid');
+
+  let error = document.createElement('div');
+  error.className = `popup__error popup__error--${targetInput.name}`;
+  error.innerHTML = errorText; 
+  targetInput.parentElement.insertBefore(error, targetInput.nextSibling);
+}
+
+function removeError(targetInput) {
+  targetInput.classList.remove('popup__input_invalid');
+
+  let errors = document.querySelectorAll(`.popup__error--${targetInput.name}`);
+  for (let i = 0; i < errors.length; i++) {
+    errors[i].remove()
+  }
+}
+
+//Неактивная кнопка
+//Проверка кнопки на наличие errors
+function inActiveButton (targetForm) {
+  const button = targetForm.querySelector('.popup__save');
+  let errors = targetForm.querySelectorAll('.popup__input_invalid');
+console.log(errors);
+  if (checkMassive.some((e) => { return e === false })) {
+    return button.classList.add('opacity_invalid');
+  } 
+
+  return button.classList.remove('opacity_invalid');
+}
+
 //проверка полей на пустоту
-function checkInput (inputField, someText) {
-  if (inputField.value) {
-    removeError(inputField);
-    checkMassive.push(true);  
-  } else {    
-    createError (inputField, someText);
-    checkMassive.push(false);
+function validateInputIsEmpty (value) {
+  if (value.length > 0) {
+    return true
   }
+  return false
 }
-
 //проверка полей на количество символов
-function checkInputValueName (inputField, someText1, someText2) {
-  if (inputField.value.length < 3) {
-    createError (inputField, someText1);
-    checkMassive.push(false);
-  } else {
-    if (inputField.value.length > 20) {
-      createError (inputField, someText2);
-      checkMassive.push(false);
-    } else {
-      removeError(inputField);
-      checkMassive.push(true);
-    }
+function validateMinLength (value, MinLength) {
+  if (value.length < MinLength) {
+    return false
   }
+  return true
 }
-
-function checkInputValueSubtitle (inputField, someText) {
-  if (inputField.value.length < 3) {
-    createError (inputField, someText);
-    checkMassive.push(false);
-  } else {
-    removeError(inputField);
-    checkMassive.push(true); 
+function validateMaxLength (value, MaxLength) {
+  if (value.length > MaxLength) {
+    return false
   }
+  return true
 }
