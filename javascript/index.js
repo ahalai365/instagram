@@ -17,7 +17,7 @@ const popupAddCloseButton = popupAdd.querySelector('.popup__close');
 buttonAdd.addEventListener('click', ()=> {
   clearInput(inputPlaceName);
   clearInput(inputPlaceBrowse);
-  openPopup(popupAdd)
+  openPopup(popupAdd);
 });
 popupAddCloseButton.addEventListener('click', ()=>closePopup(popupAdd));
 
@@ -125,7 +125,9 @@ const profileInputFields = document.querySelectorAll('.popup_edit .field');
 profileEditForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  if (checkMassive.some(function(e) {return e === false})) {
+  let form = profileEditForm;
+  let haveError = validatePresenceError(form);
+  if (haveError) {
     return
   }
 
@@ -143,9 +145,10 @@ const addFormFields = document.querySelectorAll('.popup_add .field');
 
 addForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  removeError();
 
-  if (checkMassive.some(function(e) {return e === false})) {
+  let form = addForm;
+  let haveError = validatePresenceError(form);
+  if (haveError) {
     return
   }
 
@@ -166,46 +169,104 @@ function clearInput(currentInput) {
   currentInput.value = '';
 }
 
-let checkMassive = [];
-
 //Валидация
 inputProfileName.addEventListener('input', () => {
-  removeError(inputProfileName);
-  inActiveButton(profileEditForm);
+  let form = profileEditForm;
+  let input = inputProfileName;
 
-  const value = inputProfileName.value;
-  const isEmpty = validateInputIsEmpty(value);
-  const isMinLength = validateMinLength(value, 3);
-  const isMaxLength = validateMaxLength(value, 20);
-  checkMassive = [isEmpty, isMinLength, isMaxLength];
+  let isEmpty = validateInputIsEmpty(input.value);
+  let isMinLength = validateMinLength(input.value, 3);
+  let isMaxLength = validateMaxLength(input.value, 20);
+
+  removeError(input);
+  removeinActiveButton(form);
 
   if (!isEmpty) {
-    return createError (inputProfileName, 'Укажите имя');
+    createError (input, 'Укажите имя');
   }
   if (!isMinLength) {
-    createError (inputProfileName, 'Имя слишком короткое');
+    createError (input, 'Имя слишком короткое');
   }
   if (!isMaxLength) {
-    createError (inputProfileName, 'Имя слишком длинное');
+    createError (input, 'Имя слишком длинное');
   }
 
- 
+  let haveError = validatePresenceError(form);
+
+  if (haveError) {
+    inActiveButton(form);
+  }
 });
 
 inputProfileSubtitle.addEventListener('input', () => {
-  removeError(inputProfileSubtitle);
-  inActiveButton(profileEditForm);
+  let form = profileEditForm;
+  let input = inputProfileSubtitle;
 
-  const value = inputProfileSubtitle.value;
-  const isEmpty = validateInputIsEmpty(value);
-  const isMinLength = validateMinLength(value, 3);
-  checkMassive = [isEmpty, isMinLength];
+  let isEmpty = validateInputIsEmpty(input.value);
+  let isMinLength = validateMinLength(input.value, 3);
+  
+  removeError(input);
+  removeinActiveButton(form);
 
   if (!isEmpty) {
-    createError (inputProfileSubtitle, 'Укажите деятельность');
+    createError (input, 'Укажите деятельность');
   }
   if (!isMinLength) {
-    createError (inputProfileSubtitle, 'Слишком короткое');
+    createError (input, 'Слишком короткое');
+  }
+
+  let haveError = validatePresenceError(form);
+
+  if (haveError) {
+    inActiveButton(form);
+  }
+});
+
+inputPlaceName.addEventListener('input', () => {
+  let form = addForm;
+  let input = inputPlaceName;
+
+  let isEmpty = validateInputIsEmpty(input.value);
+  let isMinLength = validateMinLength(input.value, 3);
+  
+  removeError(input);
+  removeinActiveButton(form);
+
+  if (!isEmpty) {
+    createError (input, 'Укажите название');
+  }
+  if (!isMinLength) {
+    createError (input, 'Слишком короткое');
+  }
+
+  let haveError = validatePresenceError(form);
+
+  if (haveError) {
+    inActiveButton(form);
+  }
+});
+
+inputPlaceBrowse.addEventListener('input', () => {
+  let form = addForm;
+  let input = inputPlaceBrowse;
+
+  let isEmpty = validateInputIsEmpty(input.value);
+  let isValidURL = validateInputURL(input.value);
+  
+  removeError(input);
+  removeinActiveButton(form);
+
+  if (!isEmpty) {
+    createError (input, 'Укажите путь');
+  }
+  if (!isValidURL) {
+    createError (input, 'Укажите верный путь');
+  }
+
+  let haveError = validatePresenceError(form);
+
+  if (haveError) {
+    inActiveButton(form);
   }
 });
 
@@ -220,26 +281,33 @@ function createError (targetInput, errorText) {
 }
 
 function removeError(targetInput) {
-  targetInput.classList.remove('popup__input_invalid');
-
   let errors = document.querySelectorAll(`.popup__error--${targetInput.name}`);
-  for (let i = 0; i < errors.length; i++) {
-    errors[i].remove()
-  }
+  targetInput.classList.remove('popup__input_invalid');
+  errors.forEach(function(e) {
+    e.remove();
+  })
 }
 
 //Неактивная кнопка
-//Проверка кнопки на наличие errors
-function inActiveButton (targetForm) {
+function inActiveButton(targetForm) {
   const button = targetForm.querySelector('.popup__save');
-  let errors = targetForm.querySelectorAll('.popup__input_invalid');
-console.log(errors);
-  if (checkMassive.some((e) => { return e === false })) {
-    return button.classList.add('opacity_invalid');
-  } 
+  return button.classList.add('opacity_invalid');
+}
 
+function removeinActiveButton(targetForm) {
+  const button = targetForm.querySelector('.popup__save');
   return button.classList.remove('opacity_invalid');
 }
+
+function validatePresenceError(targetForm) {
+  let error = targetForm.querySelector('.popup__error');
+
+  if (error) {
+    return true
+  }
+  return false
+}
+
 
 //проверка полей на пустоту
 function validateInputIsEmpty (value) {
@@ -261,3 +329,8 @@ function validateMaxLength (value, MaxLength) {
   }
   return true
 }
+
+function validateInputURL(string) {
+  var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+  return (res !== null)
+};
