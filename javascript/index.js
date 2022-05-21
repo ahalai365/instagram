@@ -177,23 +177,32 @@ inputProfileName.addEventListener('input', () => {
   let isEmpty = validateInputIsEmpty(input.value);
   let isMinLength = validateMinLength(input.value, 3);
   let isMaxLength = validateMaxLength(input.value, 20);
+  
+  let textError = [];
 
   removeError(input);
   removeinActiveButton(form);
 
   if (!isEmpty) {
-    createError (input, 'Укажите имя');
+    input.classList.add('popup__input_invalid');
+    textError.push('Укажите имя');
   }
+
   if (!isMinLength) {
-    createError (input, 'Имя слишком короткое');
+    input.classList.add('popup__input_invalid');
+    textError.push('Имя слишком короткое');
   }
+
   if (!isMaxLength) {
-    createError (input, 'Имя слишком длинное');
+    input.classList.add('popup__input_invalid');
+    textError.push('Имя слишком длинное');
   }
 
   let haveError = validatePresenceError(form);
 
   if (haveError) {
+    console.log(haveError);
+    createError (input, textError[0]);
     inActiveButton(form);
   }
 });
@@ -205,19 +214,25 @@ inputProfileSubtitle.addEventListener('input', () => {
   let isEmpty = validateInputIsEmpty(input.value);
   let isMinLength = validateMinLength(input.value, 3);
   
+  let textError = [];
+
   removeError(input);
   removeinActiveButton(form);
 
   if (!isEmpty) {
-    createError (input, 'Укажите деятельность');
+    input.classList.add('popup__input_invalid');
+    textError.push('Укажите деятельность');
   }
   if (!isMinLength) {
-    createError (input, 'Слишком короткое');
+    input.classList.add('popup__input_invalid');
+    textError.push('Слишком короткое');
   }
 
   let haveError = validatePresenceError(form);
 
   if (haveError) {
+    console.log(haveError);
+    createError (input, textError[0]);
     inActiveButton(form);
   }
 });
@@ -229,19 +244,25 @@ inputPlaceName.addEventListener('input', () => {
   let isEmpty = validateInputIsEmpty(input.value);
   let isMinLength = validateMinLength(input.value, 3);
   
+  let textError = [];
+
   removeError(input);
   removeinActiveButton(form);
 
   if (!isEmpty) {
-    createError (input, 'Укажите название');
+    input.classList.add('popup__input_invalid');
+    textError.push('Укажите название');
   }
   if (!isMinLength) {
-    createError (input, 'Слишком короткое');
+    input.classList.add('popup__input_invalid');
+    textError.push('Слишком короткое');
   }
 
   let haveError = validatePresenceError(form);
 
   if (haveError) {
+    console.log(haveError);
+    createError (input, textError[0]);
     inActiveButton(form);
   }
 });
@@ -253,27 +274,31 @@ inputPlaceBrowse.addEventListener('input', () => {
   let isEmpty = validateInputIsEmpty(input.value);
   let isValidURL = validateInputURL(input.value);
   
+  let textError = [];
+
   removeError(input);
   removeinActiveButton(form);
 
   if (!isEmpty) {
-    createError (input, 'Укажите путь');
+    input.classList.add('popup__input_invalid');
+    textError.push('Укажите путь');
   }
   if (!isValidURL) {
-    createError (input, 'Укажите верный путь');
+    input.classList.add('popup__input_invalid');
+    textError.push('Адрес должен содержать https');
   }
 
   let haveError = validatePresenceError(form);
 
   if (haveError) {
+    console.log(haveError);
+    createError (input, textError[0]);
     inActiveButton(form);
   }
 });
 
 //Создание и удаление ошибок
 function createError (targetInput, errorText) {
-  targetInput.classList.add('popup__input_invalid');
-
   let error = document.createElement('div');
   error.className = `popup__error popup__error--${targetInput.name}`;
   error.innerHTML = errorText; 
@@ -300,7 +325,7 @@ function removeinActiveButton(targetForm) {
 }
 
 function validatePresenceError(targetForm) {
-  let error = targetForm.querySelector('.popup__error');
+  let error = targetForm.querySelector('.popup__input_invalid');
 
   if (error) {
     return true
@@ -316,6 +341,7 @@ function validateInputIsEmpty (value) {
   }
   return false
 }
+
 //проверка полей на количество символов
 function validateMinLength (value, MinLength) {
   if (value.length < MinLength) {
@@ -323,6 +349,7 @@ function validateMinLength (value, MinLength) {
   }
   return true
 }
+
 function validateMaxLength (value, MaxLength) {
   if (value.length > MaxLength) {
     return false
