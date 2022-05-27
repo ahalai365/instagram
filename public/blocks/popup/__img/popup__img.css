@@ -1,3 +1,4 @@
 .popup__img {
     object-fit: contain;
+    width: 40vw;
 }

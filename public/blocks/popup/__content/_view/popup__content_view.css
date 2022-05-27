@@ -1,20 +1,3 @@
 .popup__content_view {
     position: relative;
-    
-    display: flex;
-    flex-direction: column;
-
-    width: 40vw;
-}
-
-@media (max-width: 1080px) {
-    .popup__content_view {
-        width: 60vw;
-    }
-}
-
-@media (max-width: 600px) {
-    .popup__content_view {
-        width: 80vw;
-    }
 }

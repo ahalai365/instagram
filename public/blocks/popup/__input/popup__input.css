@@ -11,6 +11,3 @@
 .popup__input:nth-child(2n+1):not() {
     margin-top: 54px;
 }
-.popup__input:focus {
-    border-bottom: 1px solid rgb(49, 102, 214);
-}

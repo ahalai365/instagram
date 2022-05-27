@@ -1,16 +1,2 @@
 .popup_view {
-    top: 15%;
-    left: 30vw;
-}
-
-@media (max-width: 1080px) {
-    .popup_view {
-        left: 20vw;
-    }
-}
-
-@media (max-width: 600px) {
-    .popup_view {
-        left: 8vw;
-    }
 }
