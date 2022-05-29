@@ -1,4 +1,4 @@
-import { validateInputIsEmpty, validateMinLength, validateMaxLength, validateRegExp} from './validation-rules.js'
+import { InputValidator } from './validator.js'
 
 export class InputManager {
   constructor(domElement, validationRules, chooseSubmitState) {
@@ -6,46 +6,47 @@ export class InputManager {
     this.validationRules = validationRules;
     this.invalidClassName = 'popup__input_invalid';
     this.chooseSubmitState = chooseSubmitState;
-
+    
     domElement.addEventListener('input', (e) => { this._handleInputChange(e)});
   }
 
   _handleInputChange(e) {
     let value = this.inputElement.value;
+    this._validator = new InputValidator(value, this.validationRules);
 
-    //let errors = [];
+    // let errors = [];
 
     this._clearErrors();
 
-    if (this.validationRules.isRequired) {
-      if (!validateInputIsEmpty (value)) {  
-        errors.push('Укажите имя');
-      }
-    }
+    // if (this.validationRules.isRequired) {
+    //   if (!validateInputIsEmpty (value)) {  
+    //     errors.push('Укажите имя');
+    //   }
+    // }
   
-    if (this.validationRules.isMin) {
-      if (!validateMinLength (value, this.validationRules.isMin)) {
-        errors.push('Имя слишком короткое');
-      }
-    }
+    // if (this.validationRules.isMin) {
+    //   if (!validateMinLength (value, this.validationRules.isMin)) {
+    //     errors.push('Имя слишком короткое');
+    //   }
+    // }
 
-    if (this.validationRules.isMax) {
-      if (!validateMaxLength (value, this.validationRules.isMax)) {
-        errors.push('Имя слишком длинное');
-      }
-    }
+    // if (this.validationRules.isMax) {
+    //   if (!validateMaxLength (value, this.validationRules.isMax)) {
+    //     errors.push('Имя слишком длинное');
+    //   }
+    // }
 
-    if (this.validationRules.regExp) {
-      if (!validateRegExp (value, this.validationRules.regExp.rule)) {
-        errors.push(this.validationRules.regExp.text);
-      }
-    }
+    // if (this.validationRules.regExp) {
+    //   if (!validateRegExp (value, this.validationRules.regExp.rule)) {
+    //     errors.push(this.validationRules.regExp.text);
+    //   }
+    // }
 
     const error = this._validator.validate(value);
 
-    if (errors.length > 0) {
+    if (error) {
       this.inputElement.classList.add(this.invalidClassName);
-      this._renderErrors(errors[0]);
+      this._renderErrors(error);
     }
 
     this.chooseSubmitState();

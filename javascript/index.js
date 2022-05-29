@@ -181,22 +181,43 @@ const placeFormCb = () => chooseSubmitButtonState(addForm);
 //Имени
 let nameValidationRules = {
   isRequired: true,
-  isMin: 3,
-  isMax: 20
+  empty: {
+    message: 'Укажите имя'
+  },
+  minLength: {
+    length: 3,
+    message: 'Имя слишком короткое'
+  },
+  maxLength: {
+    length: 20,
+    message: 'Имя слишком длинное'
+  }
 }
 const profileNameManager = new InputManager(inputProfileName, nameValidationRules, profileFormCb);
 
 //Профессии 
 let subtitleValidationRules = {
   isRequired: true,
-  isMin: 3
+  empty: {
+    message: 'Укажите профессию'
+  },
+  minLength: {
+    length: 3,
+    message: 'Название слишком короткое'
+  }
 }
 const profileSubtitleManager = new InputManager(inputProfileSubtitle, subtitleValidationRules, profileFormCb);
 
 //Название места
 let placeValidationRules = {
   isRequired: true,
-  isMin: 3,
+  empty: {
+    message: 'Укажите название места'
+  },
+  minLength: {
+    length: 3,
+    message: 'Название слишком короткое'
+  }
 }
 const placeNameManager = new InputManager(inputPlaceName, placeValidationRules, placeFormCb);
 
