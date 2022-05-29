@@ -14,33 +14,7 @@ export class InputManager {
     let value = this.inputElement.value;
     this._validator = new InputValidator(value, this.validationRules);
 
-    // let errors = [];
-
     this._clearErrors();
-
-    // if (this.validationRules.isRequired) {
-    //   if (!validateInputIsEmpty (value)) {  
-    //     errors.push('Укажите имя');
-    //   }
-    // }
-  
-    // if (this.validationRules.isMin) {
-    //   if (!validateMinLength (value, this.validationRules.isMin)) {
-    //     errors.push('Имя слишком короткое');
-    //   }
-    // }
-
-    // if (this.validationRules.isMax) {
-    //   if (!validateMaxLength (value, this.validationRules.isMax)) {
-    //     errors.push('Имя слишком длинное');
-    //   }
-    // }
-
-    // if (this.validationRules.regExp) {
-    //   if (!validateRegExp (value, this.validationRules.regExp.rule)) {
-    //     errors.push(this.validationRules.regExp.text);
-    //   }
-    // }
 
     const error = this._validator.validate(value);
 

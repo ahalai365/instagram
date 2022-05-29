@@ -2,7 +2,6 @@ import { validateInputIsEmpty, validateMinLength, validateMaxLength, validateReg
 
 export class InputValidator {
   constructor (value, rules) {
-    this.value = value;
     this.validationRules = rules;
   }
 
@@ -27,7 +26,7 @@ export class InputValidator {
 
     if (this.validationRules.regExp) {
       if (!validateRegExp(value, this.validationRules.regExp.rule)) {
-        errors.push(this.validationRules.regExp.text);
+        return this.validationRules.regExp.text;
       }
     }
   }

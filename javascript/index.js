@@ -56,110 +56,6 @@ addForm.addEventListener('submit', (e) => {
   closePopup(popupAdd);
 });
 
-//Валидация
-// inputProfileName.addEventListener('input', () => {
-//   let form = profileEditForm;
-//   let input = inputProfileName;
-
-//   let isEmpty = validateInputIsEmpty(input.value);
-//   let isMinLength = validateMinLength(input.value, 3);
-//   let isMaxLength = validateMaxLength(input.value, 20);
-  
-//   let textError = [];
-
-//   removeError(input);
-//   chooseSubmitButtonState(form, input, textError[0]);
-
-//   if (!isEmpty) {
-//     input.classList.add('popup__input_invalid');
-//     textError.push('Укажите имя');
-//   }
-
-//   if (!isMinLength) {
-//     input.classList.add('popup__input_invalid');
-//     textError.push('Имя слишком короткое');
-//   }
-
-//   if (!isMaxLength) {
-//     input.classList.add('popup__input_invalid');
-//     textError.push('Имя слишком длинное');
-//   }
-
-//   chooseSubmitButtonState(form, input, textError[0]);
-// });
-
-// inputProfileSubtitle.addEventListener('input', () => {
-//   let form = profileEditForm;
-//   let input = inputProfileSubtitle;
-
-//   let isEmpty = validateInputIsEmpty(input.value);
-//   let isMinLength = validateMinLength(input.value, 3);
-  
-//   let textError = [];
-
-//   removeError(input);
-//   chooseSubmitButtonState(form, input, textError[0]);
-
-//   if (!isEmpty) {
-//     input.classList.add('popup__input_invalid');
-//     textError.push('Укажите деятельность');
-//   }
-//   if (!isMinLength) {
-//     input.classList.add('popup__input_invalid');
-//     textError.push('Слишком короткое');
-//   }
-
-//   chooseSubmitButtonState(form, input, textError[0]);
-// });
-
-// inputPlaceName.addEventListener('input', () => {
-//   let form = addForm;
-//   let input = inputPlaceName;
-
-//   let isEmpty = validateInputIsEmpty(input.value);
-//   let isMinLength = validateMinLength(input.value, 3);
-  
-//   let textError = [];
-
-//   removeError(input);
-//   chooseSubmitButtonState(form, input, textError[0]);
-
-//   if (!isEmpty) {
-//     input.classList.add('popup__input_invalid');
-//     textError.push('Укажите название');
-//   }
-//   if (!isMinLength) {
-//     input.classList.add('popup__input_invalid');
-//     textError.push('Слишком короткое');
-//   }
-
-//  chooseSubmitButtonState(form, input, textError[0]);
-// });
-
-// inputPlaceBrowse.addEventListener('input', () => {
-//   let form = addForm;
-//   let input = inputPlaceBrowse;
-
-//   let isEmpty = validateInputIsEmpty(input.value);
-//   let isValidURL = validateInputURL(input.value);
-  
-//   let textError = [];
-
-//   removeError(input);
-//   chooseSubmitButtonState(form, input, textError[0]);
-
-//   if (!isEmpty) {
-//     input.classList.add('popup__input_invalid');
-//     textError.push('Укажите путь');
-//   }
-//   if (!isValidURL) {
-//     input.classList.add('popup__input_invalid');
-//     textError.push('Адрес должен содержать https');
-//   }
-
-//   chooseSubmitButtonState(form, input, textError[0]);
-// });
-
 //Неактивная кнопка
 function chooseSubmitButtonState(targetForm) {
   let error = targetForm.querySelector('.popup__input_invalid');
@@ -226,7 +122,7 @@ let linkValidationRules = {
   isRequired: true,
   regExp: {
     rule: /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g,
-    text: 'Попробуйте начать с https'
+    message: 'Попробуйте начать с https'
   }
 }
 const placeBrowseManager = new InputManager(inputPlaceBrowse, linkValidationRules, placeFormCb);

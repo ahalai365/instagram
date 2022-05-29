@@ -2,14 +2,13 @@
     background-color: white;
     color: black;
     box-sizing: border-box;
-    max-width: 430px;
+    max-width: 390px;
     max-height: 330px;
     padding: 34px 36px 37px;
     border-radius: 10px;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     
     position: relative;
 }
