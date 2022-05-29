@@ -1,5 +1,3 @@
-import { inputPlaceName, inputPlaceBrowse } from './index.js';
-
 const POPUP_OPEN_CLASS = 'popup_active';
 
 // открыть/закрыть попап
@@ -22,8 +20,8 @@ const buttonAdd = document.querySelector('.profile__add');
 const popupAddCloseButton = popupAdd.querySelector('.popup__close');
 
 buttonAdd.addEventListener('click', ()=> {
-  clearInput(inputPlaceName);
-  clearInput(inputPlaceBrowse);
+  // clearInput(inputPlaceName);
+  // clearInput(inputPlaceBrowse);
   openPopup(popupAdd);
 });
 popupAddCloseButton.addEventListener('click', ()=>closePopup(popupAdd));

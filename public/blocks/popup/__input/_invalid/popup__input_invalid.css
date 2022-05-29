@@ -1,4 +1,4 @@
-.popup__input_invalid {
+.popup__input_invalid, .popup__input_invalid:focus {
     border-bottom: 2px solid red;
     color: red;
 }
