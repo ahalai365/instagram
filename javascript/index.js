@@ -1,7 +1,7 @@
 import { createElement } from './cards.js';
 import { InputManager } from './input-manager.js';
 import './likes.js';
-import { openPopup, closePopup} from './popup.js';
+import { PopupManager } from './popup.js';
 import './validation-rules.js';
 
 const popupAdd = document.querySelector('.popup_add');
@@ -12,27 +12,10 @@ const popupEdit = document.querySelector('.popup_edit');
 const buttonEdit = document.querySelector('.profile__edit');
 const popupEditCloseButton = popupEdit.querySelector('.popup__close');
 
+const viewElement = document.querySelector('element__img');
 const popupView = document.querySelector('.popup_view');
 const popupViewImg = popupView.querySelector('.popup__img');
 const popupViewCloseButton = popupView.querySelector('.popup__close');
-
-// попапы мест и профиля
-buttonAdd.addEventListener('click', () => {openPopup(popupAdd)});
-popupAddCloseButton.addEventListener('click', () => {closePopup(popupAdd)});
-
-buttonEdit.addEventListener('click', () => {openPopup(popupEdit)});
-popupEditCloseButton.addEventListener('click', () => {closePopup(popupEdit)});
-
-// Просмотр фотографий
-function openPopupViewHandler(event) {
-  if (event.target.classList.contains('element__img')) {ы
-    openPopup(popupView);
-    popupViewImg.src = event.target.src;
-  }
-}
-
-popupViewCloseButton.addEventListener('click', ()=>closePopup(popupView));
-document.addEventListener('click', openPopupViewHandler);
 
 //Создание карточек
 const data = [
@@ -111,6 +94,26 @@ addForm.addEventListener('submit', (e) => {
   createElement(element);
   closePopup(popupAdd);
 });
+
+// попапы мест и профиля
+const openAddPopup = new PopupManager(buttonAdd, popupAdd);
+const closeAddPopup = new PopupManager(popupAddCloseButton, popupAdd)
+
+const openEditPopup = new PopupManager(buttonEdit, popupEdit);
+const closeEditPopup = new PopupManager(popupEditCloseButton, popupEdit)
+
+// Просмотр фотографий
+function PopupImgHandler(viewElement) {
+    popupViewImg.src = viewElement.src;
+}
+
+const PopupImgHandlerCb = () => PopupImgHandler(viewElement);
+
+const openViewPopup = new PopupManager(viewElement, popupView, PopupImgHandlerCb);
+const closeViewPopup = new PopupManager(popupViewCloseButton, popupView)
+
+// popupViewCloseButton.addEventListener('click', ()=>closePopup(popupView));
+// document.addEventListener('click', openPopupViewHandler);
 
 //Неактивная кнопка
 function chooseSubmitButtonState(targetForm) {
