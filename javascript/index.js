@@ -12,7 +12,8 @@ const popupEdit = document.querySelector('.popup_edit');
 const buttonEdit = document.querySelector('.profile__edit');
 const popupEditCloseButton = popupEdit.querySelector('.popup__close');
 
-const viewElement = document.querySelector('element__img');
+const viewElement = document.querySelector('.element__img');
+console.log(viewElement);
 const popupView = document.querySelector('.popup_view');
 const popupViewImg = popupView.querySelector('.popup__img');
 const popupViewCloseButton = popupView.querySelector('.popup__close');
