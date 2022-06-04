@@ -43,7 +43,6 @@ const buttonEdit = document.querySelector('.profile__edit');
 const popupEditCloseButton = popupEdit.querySelector('.popup__close');
 
 const viewElement = document.querySelector('.element__img');
-console.log(viewElement);
 const popupView = document.querySelector('.popup_view');
 const popupViewImg = popupView.querySelector('.popup__img');
 const popupViewCloseButton = popupView.querySelector('.popup__close');
@@ -64,9 +63,6 @@ const PopupImgHandlerCb = () => PopupImgHandler(viewElement);
 
 const openViewPopup = new PopupManager(viewElement, popupView, PopupImgHandlerCb);
 const closeViewPopup = new PopupManager(popupViewCloseButton, popupView)
-
-// popupViewCloseButton.addEventListener('click', ()=>closePopup(popupView));
-// document.addEventListener('click', openPopupViewHandler);
 
 //Изменение профиля, отправка формы
 const elementProfileName = document.querySelector('.profile__name');

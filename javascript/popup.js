@@ -13,6 +13,7 @@ export class PopupManager {
 
   _handlePopup() {
     if (this.domElement.classList.contains('element__img')) {
+      console.log('click');
       this._openPopup(this.targetPopup);
       this.popupViewHandler();
       return
