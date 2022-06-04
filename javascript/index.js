@@ -4,20 +4,6 @@ import './likes.js';
 import { PopupManager } from './popup.js';
 import './validation-rules.js';
 
-const popupAdd = document.querySelector('.popup_add');
-const buttonAdd = document.querySelector('.profile__add');
-const popupAddCloseButton = popupAdd.querySelector('.popup__close');
-
-const popupEdit = document.querySelector('.popup_edit');
-const buttonEdit = document.querySelector('.profile__edit');
-const popupEditCloseButton = popupEdit.querySelector('.popup__close');
-
-const viewElement = document.querySelector('.element__img');
-console.log(viewElement);
-const popupView = document.querySelector('.popup_view');
-const popupViewImg = popupView.querySelector('.popup__img');
-const popupViewCloseButton = popupView.querySelector('.popup__close');
-
 //Создание карточек
 const data = [
   {
@@ -46,6 +32,41 @@ const data = [
   }
 ]
 data.forEach(createElement);
+
+
+const popupAdd = document.querySelector('.popup_add');
+const buttonAdd = document.querySelector('.profile__add');
+const popupAddCloseButton = popupAdd.querySelector('.popup__close');
+
+const popupEdit = document.querySelector('.popup_edit');
+const buttonEdit = document.querySelector('.profile__edit');
+const popupEditCloseButton = popupEdit.querySelector('.popup__close');
+
+const viewElement = document.querySelector('.element__img');
+console.log(viewElement);
+const popupView = document.querySelector('.popup_view');
+const popupViewImg = popupView.querySelector('.popup__img');
+const popupViewCloseButton = popupView.querySelector('.popup__close');
+
+// попапы мест и профиля
+const openAddPopup = new PopupManager(buttonAdd, popupAdd);
+const closeAddPopup = new PopupManager(popupAddCloseButton, popupAdd)
+
+const openEditPopup = new PopupManager(buttonEdit, popupEdit);
+const closeEditPopup = new PopupManager(popupEditCloseButton, popupEdit)
+
+// Просмотр фотографий
+function PopupImgHandler(viewElement) {
+    popupViewImg.src = viewElement.src;
+}
+
+const PopupImgHandlerCb = () => PopupImgHandler(viewElement);
+
+const openViewPopup = new PopupManager(viewElement, popupView, PopupImgHandlerCb);
+const closeViewPopup = new PopupManager(popupViewCloseButton, popupView)
+
+// popupViewCloseButton.addEventListener('click', ()=>closePopup(popupView));
+// document.addEventListener('click', openPopupViewHandler);
 
 //Изменение профиля, отправка формы
 const elementProfileName = document.querySelector('.profile__name');
@@ -95,26 +116,6 @@ addForm.addEventListener('submit', (e) => {
   createElement(element);
   closePopup(popupAdd);
 });
-
-// попапы мест и профиля
-const openAddPopup = new PopupManager(buttonAdd, popupAdd);
-const closeAddPopup = new PopupManager(popupAddCloseButton, popupAdd)
-
-const openEditPopup = new PopupManager(buttonEdit, popupEdit);
-const closeEditPopup = new PopupManager(popupEditCloseButton, popupEdit)
-
-// Просмотр фотографий
-function PopupImgHandler(viewElement) {
-    popupViewImg.src = viewElement.src;
-}
-
-const PopupImgHandlerCb = () => PopupImgHandler(viewElement);
-
-const openViewPopup = new PopupManager(viewElement, popupView, PopupImgHandlerCb);
-const closeViewPopup = new PopupManager(popupViewCloseButton, popupView)
-
-// popupViewCloseButton.addEventListener('click', ()=>closePopup(popupView));
-// document.addEventListener('click', openPopupViewHandler);
 
 //Неактивная кнопка
 function chooseSubmitButtonState(targetForm) {
