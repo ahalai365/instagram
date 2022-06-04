@@ -1,10 +1,67 @@
-import './cards.js';
-import { InputManager } from './input-manager.js'
+import { createElement } from './cards.js';
+import { InputManager } from './input-manager.js';
 import './likes.js';
-import './popup.js';
-import { popupEdit, popupAdd } from './popup.js';
-import { closePopup } from './popup.js';
+import { openPopup, closePopup} from './popup.js';
 import './validation-rules.js';
+
+const popupAdd = document.querySelector('.popup_add');
+const buttonAdd = document.querySelector('.profile__add');
+const popupAddCloseButton = popupAdd.querySelector('.popup__close');
+
+const popupEdit = document.querySelector('.popup_edit');
+const buttonEdit = document.querySelector('.profile__edit');
+const popupEditCloseButton = popupEdit.querySelector('.popup__close');
+
+const popupView = document.querySelector('.popup_view');
+const popupViewImg = popupView.querySelector('.popup__img');
+const popupViewCloseButton = popupView.querySelector('.popup__close');
+
+// попапы мест и профиля
+buttonAdd.addEventListener('click', () => {openPopup(popupAdd)});
+popupAddCloseButton.addEventListener('click', () => {closePopup(popupAdd)});
+
+buttonEdit.addEventListener('click', () => {openPopup(popupEdit)});
+popupEditCloseButton.addEventListener('click', () => {closePopup(popupEdit)});
+
+// Просмотр фотографий
+function openPopupViewHandler(event) {
+  if (event.target.classList.contains('element__img')) {ы
+    openPopup(popupView);
+    popupViewImg.src = event.target.src;
+  }
+}
+
+popupViewCloseButton.addEventListener('click', ()=>closePopup(popupView));
+document.addEventListener('click', openPopupViewHandler);
+
+//Создание карточек
+const data = [
+  {
+    title: 'Карачаевск',
+    src: './images/1.png'
+  },
+  {
+    title: 'Гора Эльбрус',
+    src: './images/2.png'
+  },
+  {
+    title: 'Домбай',
+    src: './images/3.png'
+  },
+  {
+    title: 'Гора Эльбрус',
+    src: './images/2.png'
+  },
+  {
+    title: 'Домбай',
+    src: './images/3.png'
+  },
+  {
+    title: 'Карачаево-Черкесская Республика',
+    src: './images/1.png'
+  }
+]
+data.forEach(createElement);
 
 //Изменение профиля, отправка формы
 const elementProfileName = document.querySelector('.profile__name');
@@ -33,7 +90,6 @@ profileEditForm.addEventListener('submit', (e) => {
 const addForm = document.forms.addForm;
 const inputPlaceName = addForm.elements.inputPlaceName;
 const inputPlaceBrowse = addForm.elements.inputPlaceBrowse;
-// const addFormFields = document.querySelectorAll('.popup_add .field');
 
 addForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -52,7 +108,7 @@ addForm.addEventListener('submit', (e) => {
   element[0].title = inputPlaceName.value;
   element[0].src = inputPlaceBrowse.value;
 
-  createElements (element);
+  createElement(element);
   closePopup(popupAdd);
 });
 

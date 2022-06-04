@@ -10,7 +10,7 @@ export class InputManager {
     domElement.addEventListener('input', (e) => { this._handleInputChange(e)});
   }
 
-  _handleInputChange(e) {
+  _handleInputChange() {
     let value = this.inputElement.value;
     this._validator = new InputValidator(value, this.validationRules);
 
@@ -41,6 +41,4 @@ export class InputManager {
       e.remove();
     })
   }
-
-  
 }
