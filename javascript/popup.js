@@ -1,42 +1,22 @@
 const POPUP_OPEN_CLASS = 'popup_active';
 
 export class PopupManager {
-  constructor (domElement, targetPopup, popupViewHandler) {
+  constructor (popupElement) {
     this.POPUP_OPEN_CLASS = 'popup_active';
-    this.domElement = domElement;
-    this.targetPopup = targetPopup;
-    this.popupViewHandler = popupViewHandler;
+    this._popupElement = popupElement;
 
-    domElement.addEventListener('click', (e) => { this._handlePopup(e)});
-    
+    const closeButton = popupElement.querySelector('.popup__close');
+
+    closeButton.addEventListener('click', () => {
+      this.closePopup();
+    })
   }
 
-  _handlePopup() {
-    if (this.domElement.classList.contains('element__img')) {
-      console.log('click');
-      this._openPopup(this.targetPopup);
-      this.popupViewHandler();
-      return
-    }
-
-    if (this.domElement.classList.contains('profile__edit')) {
-      return this._openPopup(this.targetPopup);
-    }
-
-    if (this.domElement.classList.contains('profile__add')) {
-      return this._openPopup(this.targetPopup);
-    }
-
-    if (this.domElement.classList.contains('popup__close')) {
-      return this._closePopup(this.targetPopup);
-    }
+  openPopup() {
+    this._popupElement.classList.add(this.POPUP_OPEN_CLASS);
   }
 
-  _openPopup(targetPopup) {
-    targetPopup.classList.add(this.POPUP_OPEN_CLASS);
-  }
-
-  _closePopup(targetPopup) {
-    targetPopup.classList.remove(this.POPUP_OPEN_CLASS);
+  closePopup() {
+    this._popupElement.classList.remove(this.POPUP_OPEN_CLASS);
   }
 }

@@ -1,8 +1,9 @@
-import { createElement } from './cards.js';
+import { Card } from './cards.js';
 import { InputManager } from './input-manager.js';
 import './likes.js';
 import { PopupManager } from './popup.js';
 import './validation-rules.js';
+import { InputValidator } from './validator.js'
 
 //Создание карточек
 const data = [
@@ -31,40 +32,40 @@ const data = [
     src: './images/1.png'
   }
 ]
-data.forEach(createElement);
 
+// Лайки
+const LIKE_ACTIVE_CLASS = 'element__like_active';
+// Просмотр фотографий и создание карточек
+const CARD_TEMPLATE = '#element-template';
 
-const popupAdd = document.querySelector('.popup_add');
-const buttonAdd = document.querySelector('.profile__add');
-const popupAddCloseButton = popupAdd.querySelector('.popup__close');
+const popupView = document.querySelector('.popup_view')
+const previewImg = popupView.querySelector('.popup__img');
+const ELEMENTS = document.querySelector('.elements');
 
-const popupEdit = document.querySelector('.popup_edit');
-const buttonEdit = document.querySelector('.profile__edit');
-const popupEditCloseButton = popupEdit.querySelector('.popup__close');
+let viewPopup = new PopupManager(popupView);
 
-const viewElement = document.querySelector('.element__img');
-const popupView = document.querySelector('.popup_view');
-const popupViewImg = popupView.querySelector('.popup__img');
-const popupViewCloseButton = popupView.querySelector('.popup__close');
-
-// попапы мест и профиля
-const openAddPopup = new PopupManager(buttonAdd, popupAdd);
-const closeAddPopup = new PopupManager(popupAddCloseButton, popupAdd)
-
-const openEditPopup = new PopupManager(buttonEdit, popupEdit);
-const closeEditPopup = new PopupManager(popupEditCloseButton, popupEdit)
-
-// Просмотр фотографий
-function PopupImgHandler(viewElement) {
-    popupViewImg.src = viewElement.src;
+function handleClickCard(_src) {
+  previewImg.src = _src;
+  viewPopup.openPopup();
 }
 
-const PopupImgHandlerCb = () => PopupImgHandler(viewElement);
+data.forEach((cardData) => {
+  const card = new Card(cardData, CARD_TEMPLATE);
+  console.log(new Card(cardData, CARD_TEMPLATE));
+  card.onClick(handleClickCard);
+  ELEMENTS.append(card.render());
+});
 
-const openViewPopup = new PopupManager(viewElement, popupView, PopupImgHandlerCb);
-const closeViewPopup = new PopupManager(popupViewCloseButton, popupView)
+//Изменение профиля
+const popupEdit = document.querySelector('.popup_edit');
+const buttonEdit = document.querySelector('.profile__edit');
 
-//Изменение профиля, отправка формы
+let profilePopup = new PopupManager(popupEdit);
+
+buttonEdit.addEventListener( 'click', () => {
+  profilePopup.openPopup();
+})
+
 const elementProfileName = document.querySelector('.profile__name');
 const elementProfileSubtitle = document.querySelector('.profile__subtitle');
 
@@ -84,10 +85,19 @@ profileEditForm.addEventListener('submit', (e) => {
   elementProfileName.textContent = inputProfileName.value;
   elementProfileSubtitle.textContent = inputProfileSubtitle.value;
 
-  closePopup(popupEdit);
+  profilePopup.closePopup();
 });
 
-// добавить место, отправка формы
+//Добавление фотографий
+const popupAdd = document.querySelector('.popup_add');
+const buttonAdd = document.querySelector('.profile__add');
+
+let addPopup = new PopupManager(popupAdd);
+
+buttonAdd.addEventListener( 'click', () => {
+  addPopup.openPopup();
+})
+
 const addForm = document.forms.addForm;
 const inputPlaceName = addForm.elements.inputPlaceName;
 const inputPlaceBrowse = addForm.elements.inputPlaceBrowse;
@@ -101,16 +111,18 @@ addForm.addEventListener('submit', (e) => {
     return
   }
 
-  const element = [{
+  const element = {
       title: '',
       src: ''
-    }];
+    };
 
-  element[0].title = inputPlaceName.value;
-  element[0].src = inputPlaceBrowse.value;
+  element.title = inputPlaceName.value;
+  element.src = inputPlaceBrowse.value;
 
-  createElement(element);
-  closePopup(popupAdd);
+  const card = new Card(element, CARD_TEMPLATE);
+  card.onClick(handleClickCard);
+  ELEMENTS.append(card.render);
+  addPopup.closePopup();
 });
 
 //Неактивная кнопка
@@ -146,7 +158,7 @@ let nameValidationRules = {
     message: 'Имя слишком длинное'
   }
 }
-const profileNameManager = new InputManager(inputProfileName, nameValidationRules, profileFormCb);
+const profileNameManager = new InputManager(inputProfileName, new InputValidator(nameValidationRules), profileFormCb);
 
 //Профессии 
 let subtitleValidationRules = {
@@ -159,7 +171,7 @@ let subtitleValidationRules = {
     message: 'Название слишком короткое'
   }
 }
-const profileSubtitleManager = new InputManager(inputProfileSubtitle, subtitleValidationRules, profileFormCb);
+const profileSubtitleManager = new InputManager(inputProfileSubtitle, new InputValidator(subtitleValidationRules), profileFormCb);
 
 //Название места
 let placeValidationRules = {
@@ -172,7 +184,7 @@ let placeValidationRules = {
     message: 'Название слишком короткое'
   }
 }
-const placeNameManager = new InputManager(inputPlaceName, placeValidationRules, placeFormCb);
+const placeNameManager = new InputManager(inputPlaceName, new InputValidator(placeValidationRules), placeFormCb);
 
 //Путь
 let linkValidationRules = {
@@ -182,4 +194,4 @@ let linkValidationRules = {
     message: 'Попробуйте начать с https'
   }
 }
-const placeBrowseManager = new InputManager(inputPlaceBrowse, linkValidationRules, placeFormCb);
+const placeBrowseManager = new InputManager(inputPlaceBrowse, new InputValidator(linkValidationRules), placeFormCb);

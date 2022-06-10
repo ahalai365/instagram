@@ -1,7 +1,7 @@
 import { validateInputIsEmpty, validateMinLength, validateMaxLength, validateRegExp} from './validation-rules.js'
 
 export class InputValidator {
-  constructor (value, rules) {
+  constructor (rules) {
     this.validationRules = rules;
   }
 

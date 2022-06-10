@@ -1,19 +1,16 @@
-import { InputValidator } from './validator.js'
-
 export class InputManager {
-  constructor(domElement, validationRules, chooseSubmitState) {
+  constructor(domElement, validator, chooseSubmitState) {
     this.inputElement = domElement;
-    this.validationRules = validationRules;
+    this._validator = validator;
     this.invalidClassName = 'popup__input_invalid';
     this.chooseSubmitState = chooseSubmitState;
     
-    domElement.addEventListener('input', (e) => { this._handleInputChange(e)});
+    domElement.addEventListener('input', this._handleInputChange);
   }
 
-  _handleInputChange() {
+  _handleInputChange = () => {
     let value = this.inputElement.value;
-    this._validator = new InputValidator(value, this.validationRules);
-
+    
     this._clearErrors();
 
     const error = this._validator.validate(value);
