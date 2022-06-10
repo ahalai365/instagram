@@ -1,6 +1,5 @@
 import { Card } from './cards.js';
 import { InputManager } from './input-manager.js';
-import './likes.js';
 import { PopupManager } from './popup.js';
 import './validation-rules.js';
 import { InputValidator } from './validator.js'
@@ -44,14 +43,14 @@ const ELEMENTS = document.querySelector('.elements');
 
 let viewPopup = new PopupManager(popupView);
 
-function handleClickCard(_src) {
-  previewImg.src = _src;
+function handleClickCard(src) {
+  previewImg.src = this._src;
   viewPopup.openPopup();
 }
 
 data.forEach((cardData) => {
   const card = new Card(cardData, CARD_TEMPLATE);
-  console.log(new Card(cardData, CARD_TEMPLATE));
+  console.log
   card.onClick(handleClickCard);
   ELEMENTS.append(card.render());
 });
