@@ -1,8 +1,11 @@
 import { Card } from './cards.js';
+import { FormConstructor } from './form.js'
 import { InputManager } from './input-manager.js';
 import { PopupManager } from './popup.js';
 import './validation-rules.js';
 import { InputValidator } from './validator.js'
+
+
 
 //Создание карточек
 const data = [
@@ -32,8 +35,6 @@ const data = [
   }
 ]
 
-// Лайки
-const LIKE_ACTIVE_CLASS = 'element__like_active';
 // Просмотр фотографий и создание карточек
 const CARD_TEMPLATE = '#element-template';
 
@@ -44,13 +45,12 @@ const ELEMENTS = document.querySelector('.elements');
 let viewPopup = new PopupManager(popupView);
 
 function handleClickCard(src) {
-  previewImg.src = this._src;
+  previewImg.src = src;
   viewPopup.openPopup();
 }
 
 data.forEach((cardData) => {
   const card = new Card(cardData, CARD_TEMPLATE);
-  console.log
   card.onClick(handleClickCard);
   ELEMENTS.append(card.render());
 });
@@ -194,3 +194,24 @@ let linkValidationRules = {
   }
 }
 const placeBrowseManager = new InputManager(inputPlaceBrowse, new InputValidator(linkValidationRules), placeFormCb);
+
+// const f1 = new Form({
+//   onSubmit: (data) => {},
+//   rules: {
+//     name: {
+//       isequired: ...,
+//       regExp: {
+//         rule: '',
+//         message: ''
+//       }
+//     },
+//     ...
+//   },
+//   config: {
+//     formSelector: '.form1',
+//     inputClassName,
+//     inputErrorClassName,
+//     submitSelector,
+//     submitDisabledClassName
+//   }
+// })

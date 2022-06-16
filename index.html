@@ -47,9 +47,9 @@
                 <div class="popup__content">
                     <div class="popup__title">Редактировать профиль</div>
 
-                    <form name="profileEditForm">   
-                        <input name="inputProfileName" type="text" class="popup__input field" value="Жак-Ив Кусто" placeholder="Укажате имя">
-                        <input name="inputProfileSubtitle" type="text" class="popup__input field" value="Исследователь океана" placeholder="Укажите деятильность">
+                    <form class="form__edit">   
+                        <input type="text" class="popup__input form__edit__title" value="Жак-Ив Кусто" placeholder="Укажате имя">
+                        <input type="text" class="popup__input form__edit__subtitle" value="Исследователь океана" placeholder="Укажите деятильность">
                         <button name="submitProfile" type="submit" class="popup__save opacity">Сохранить</button>
                     </form>
 
@@ -61,9 +61,9 @@
                 <div class="popup__content">
                     <div class="popup__title">Добавить место</div>
                     
-                    <form name="addForm">
-                        <input name="inputPlaceName" type="text" class="popup__input field" placeholder="Укажате название">
-                        <input name="inputPlaceBrowse" type="url" class="popup__input field" placeholder="Укажите путь">
+                    <form class="form__add">
+                        <input type="text" class="popup__input form__add__title" placeholder="Укажате название">
+                        <input type="url" class="popup__input form__add__browse" placeholder="Укажите путь">
                         <button class="popup__save opacity" type="submit">Сохранить</button>
                     </form>
 

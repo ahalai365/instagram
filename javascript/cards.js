@@ -5,7 +5,7 @@ export class Card {
   constructor({ title, src }, templateSelector) {
     this._title = title;
     this._src = src;
-    this._clickCallback = null;
+    this._clickCallback = () => {};
     
     this._element = document.querySelector(templateSelector).content.querySelector('.element').cloneNode(true);
     const elementFooter = this._element.querySelector('.element__footer');
@@ -17,7 +17,7 @@ export class Card {
     elementTitle.textContent = title;
 
     elementImage.addEventListener('click', () => {
-      this._clickCallback && this._clickCallback(this.src);
+      this._clickCallback(this._src);
     });
 
     this._likeButton = this._element.querySelector('.element__like');
@@ -42,5 +42,4 @@ export class Card {
   render() {
    return this._element;
   }
-  
 }
