@@ -4,7 +4,7 @@ export class InputManager {
     this._validator = validator;
     this.invalidClassName = 'popup__input_invalid';
     this.chooseSubmitState = chooseSubmitState;
-    
+    console.log('button state', this.chooseSubmitState);
     domElement.addEventListener('input', this._handleInputChange);
   }
 
@@ -32,7 +32,7 @@ export class InputManager {
 
   _clearErrors() {
     let errors = document.querySelectorAll(`.popup__error--${this.inputElement.name}`);
-    this.inputElement.classList.remove('popup__input_invalid');
+    this.inputElement.classList.remove(this.invalidClassName);
 
     errors.forEach(function(e) {
       e.remove();

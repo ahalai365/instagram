@@ -48,8 +48,8 @@
                     <div class="popup__title">Редактировать профиль</div>
 
                     <form class="form__edit">   
-                        <input type="text" class="popup__input form__edit__title" value="Жак-Ив Кусто" placeholder="Укажате имя">
-                        <input type="text" class="popup__input form__edit__subtitle" value="Исследователь океана" placeholder="Укажите деятильность">
+                        <input type="text" name="title"  class="popup__input" value="Жак-Ив Кусто" placeholder="Укажате имя">
+                        <input type="text" name="subtitle" class="popup__input" value="Исследователь океана" placeholder="Укажите деятильность">
                         <button name="submitProfile" type="submit" class="popup__save opacity">Сохранить</button>
                     </form>
 
@@ -62,9 +62,9 @@
                     <div class="popup__title">Добавить место</div>
                     
                     <form class="form__add">
-                        <input type="text" class="popup__input form__add__title" placeholder="Укажате название">
-                        <input type="url" class="popup__input form__add__browse" placeholder="Укажите путь">
-                        <button class="popup__save opacity" type="submit">Сохранить</button>
+                        <input type="text" name="title" class="popup__input" placeholder="Укажате название">
+                        <input type="url" name="browse" class="popup__input" placeholder="Укажите путь">
+                        <button name="submitPlace" type="submit" class="popup__save opacity">Сохранить</button>
                     </form>
 
                     <button class="popup__close opacity"></button>

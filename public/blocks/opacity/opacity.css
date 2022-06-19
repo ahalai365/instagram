@@ -15,3 +15,6 @@
 .opacity .button__save, .opacity:hover {
     opacity: 0.8;
 }
+.opacity:disabled {
+    opacity: 1;
+}
