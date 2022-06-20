@@ -1,10 +1,10 @@
 export class InputManager {
   constructor(domElement, validator, chooseSubmitState) {
+    console.log('v menager', chooseSubmitState);
     this.inputElement = domElement;
     this._validator = validator;
     this.invalidClassName = 'popup__input_invalid';
-    this.chooseSubmitState = chooseSubmitState;
-    console.log('button state', this.chooseSubmitState);
+    this._chooseSubmitState = chooseSubmitState;
     domElement.addEventListener('input', this._handleInputChange);
   }
 
@@ -20,7 +20,7 @@ export class InputManager {
       this._renderErrors(error);
     }
 
-    this.chooseSubmitState();
+    this._chooseSubmitState();
   }
 
   _renderErrors(errorText) {

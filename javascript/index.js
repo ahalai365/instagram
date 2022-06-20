@@ -176,9 +176,11 @@ buttonAdd.addEventListener( 'click', () => {
 
 
 const editForm = new FormConstructor({
-  onSubmit: (data) => {
-    elementProfileName.textContent = inputProfileName.value;
-    elementProfileSubtitle.textContent = inputProfileSubtitle.value;
+  onSubmit: (inputElement) => {
+    elementProfileName.textContent = inputElement[0].value;
+    elementProfileSubtitle.textContent = inputElement[1].value;
+
+    profilePopup.closePopup();
   },
 
   rules: {
@@ -212,7 +214,7 @@ const editForm = new FormConstructor({
     formSelector: '.form__edit',
     inputClassNameSelector: '.popup__input',
     inputErrorClassName: 'popup__error',
-    submitSelector: 'popup__save',
+    submitSelector: '.popup__save',
     submitDisabledClassName: 'popup__save_disable'
   }
 });

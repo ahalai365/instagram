@@ -16,5 +16,5 @@
     opacity: 0.8;
 }
 .opacity:disabled {
-    opacity: 1;
+    opacity: 0.5;
 }

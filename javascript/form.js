@@ -12,22 +12,32 @@ export class FormConstructor {
 
     this.submitSelector = config.submitSelector;
     this.submitDisabled = config.submitDisabledClassName;
-    const chooseSubmitButtonStateCb = () => {chooseSubmitButtonState(this._form)};
+    
+    this.chooseSubmitButtonStateCb = () => this.chooseSubmitButtonState(this._form);
 
     this._inputManagers = this.inputClassName.forEach((currentInput) => {
-      console.log('currentInput', currentInput);
-      return new InputManager(currentInput, new InputValidator(rules[currentInput.name], chooseSubmitButtonStateCb));
+      new InputManager(currentInput, new InputValidator(rules[currentInput.name]), this.chooseSubmitButtonStateCb);
     });
 
-    console.log('rules', this.rules);
-    console.log('form', this._form);
-    console.log('submit', this.onSubmit);
-    console.log('inputs', this.inputClassName);
-    console.log('submit', chooseSubmitButtonStateCb);
+    this._form.addEventListener('submit', (e) => {
+        e.preventDefault();
 
+        let haveError = this._form.querySelector('.popup__input_invalid');
+        if (haveError) {
+          return
+        }
+      
+        this.onSubmit(this.inputClassName);
+      });
+
+    // console.log('rules', this.rules);
+    // console.log('form', this._form);
+    // console.log('submit', this.onSubmit);
+    // console.log('inputs', this.inputClassName);
+    // console.log('managers', this._inputManagers);
+    // console.log('submit', this.chooseSubmitButtonStateCb);
   }
 
-//Неактивная кнопка
   chooseSubmitButtonState(targetForm) {
   let error = targetForm.querySelector('.popup__input_invalid');
   const button = targetForm.querySelector(this.submitSelector);
