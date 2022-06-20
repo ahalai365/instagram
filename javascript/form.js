@@ -11,8 +11,7 @@ export class FormConstructor {
     this.inputErrorClassName = inputErrorClassName;
 
     this.submitSelector = config.submitSelector;
-    this.submitDisabled = config.submitDisabledClassName;
-    
+        
     this.chooseSubmitButtonStateCb = () => this.chooseSubmitButtonState(this._form);
 
     this._inputManagers = this.inputClassName.forEach((currentInput) => {
@@ -44,10 +43,8 @@ export class FormConstructor {
 
   if (error) {
     button.disabled = true;
-    button.classList.add(this.submitDisabled);
     return 
   }
   button.disabled = false;
-  button.classList.remove(this.submitDisabled);
   }
 }

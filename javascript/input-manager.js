@@ -1,6 +1,5 @@
 export class InputManager {
   constructor(domElement, validator, chooseSubmitState) {
-    console.log('v menager', chooseSubmitState);
     this.inputElement = domElement;
     this._validator = validator;
     this.invalidClassName = 'popup__input_invalid';
