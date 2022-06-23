@@ -28,13 +28,6 @@ export class FormConstructor {
       
         this.onSubmit(this.inputClassName);
       });
-
-    // console.log('rules', this.rules);
-    // console.log('form', this._form);
-    // console.log('submit', this.onSubmit);
-    // console.log('inputs', this.inputClassName);
-    // console.log('managers', this._inputManagers);
-    // console.log('submit', this.chooseSubmitButtonStateCb);
   }
 
   chooseSubmitButtonState(targetForm) {

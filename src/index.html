@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- <link rel="stylesheet" href="./public/vendor/normalize.css">
+        <link rel="stylesheet" href="./public/vendor/reset.css">
+        <link rel="stylesheet" href="./public/pages/index.css"> -->
+        <title>Попапы</title>
+    </head>
+    <body>
+
+        <template id="element-template">
+            <div class="element">
+                <img class="element__img">
+                <div class="element__footer">
+                    <h3 class="element__title"></h3>
+                    <img class="element__like  opacity" src="./../images/dislike.png">
+                </div>
+            </div>    
+        </template>
+
+        <div class="page">
+            <header class="header">
+                <img class="logo" src="./../images/logo.png">
+            </header>
+            <div class="content">
+                <section class="profile">
+                    <img class="profile__avatar" src="./../images/avatar.png">
+                    <div class="profile__info">
+                        <div class="profile__title">
+                            <h1 class="profile__name">Жак-Ив Кусто</h1>
+                            <button class="profile__edit opacity"></button>
+                        </div>
+                        <h2 class="profile__subtitle">Исследователь океана</h2>
+                    </div>
+                    <button class="profile__add opacity"></button>
+                </section>
+                <section class="elements">
+                </section>
+                <footer class="footer">
+                    <div class="footer__copy">&copy; 2020 Mesto Russia</div>
+                </footer>
+            </div>
+            <div class="popup popup_edit">
+                <div class="popup__overlay"></div>
+                <div class="popup__content">
+                    <div class="popup__title">Редактировать профиль</div>
+
+                    <form class="form__edit">   
+                        <input type="text" name="title"  class="popup__input" value="Жак-Ив Кусто" placeholder="Укажате имя">
+                        <input type="text" name="subtitle" class="popup__input" value="Исследователь океана" placeholder="Укажите деятильность">
+                        <button name="submitProfile" type="submit" class="popup__save opacity">Сохранить</button>
+                    </form>
+
+                        <button class="popup__close opacity"></button>
+                </div>
+            </div>
+            <div class="popup popup_add">
+                <div class="popup__overlay"></div>
+                <div class="popup__content">
+                    <div class="popup__title">Добавить место</div>
+                    
+                    <form class="form__add">
+                        <input type="text" name="title" class="popup__input" placeholder="Укажате название">
+                        <input type="url" name="browse" class="popup__input" placeholder="Укажите путь">
+                        <button name="submitPlace" type="submit" class="popup__save opacity">Сохранить</button>
+                    </form>
+
+                    <button class="popup__close opacity"></button>
+                </div>  
+            </div>
+            <div class="popup popup_view">
+                <div class="popup__overlay"></div>
+                <div class="popup__content_view">
+                    <img class="popup__img" src="./../images/1.png" alt="???">
+                    <button class="popup__close opacity"></button>
+                </div>
+            </div>
+        </div>
+        <script src="./index.js" type="module"></script>
+    </body>
+</html>
+          
+
