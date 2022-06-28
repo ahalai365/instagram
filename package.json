@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rd /s /q dist && webpack --mode production",
+    "build": "rimraf dist && webpack",
     "dev": "webpack serve"
   },
   "repository": {

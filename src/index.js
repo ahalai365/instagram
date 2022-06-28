@@ -1,36 +1,36 @@
-import './../public/vendor/reset.css';
-import './../public/vendor/normalize.css';
-import './../public/pages/index.css';
+import './styles/vendor/reset.css';
+import './styles/vendor/normalize.css';
+import './styles/pages/index.css';
 
-import { Card } from '../javascript/cards.js';
-import { FormConstructor } from '../javascript/form.js'
-import { PopupManager } from '../javascript/popup.js';
+import { Card } from './javascript/cards.js';
+import { FormConstructor } from './javascript/form.js'
+import { PopupManager } from './javascript/popup.js';
 
 //Создание карточек
 const data = [
   {
     title: 'Карачаевск',
-    src: require('./../images/1.png')
+    src: require('./images/1.png')
   },
   {
     title: 'Гора Эльбрус',
-    src: require('./../images/2.png')
+    src: require('./images/2.png')
   },
   {
     title: 'Домбай',
-    src: require('./../images/3.png')
+    src: require('./images/3.png')
   },
   {
     title: 'Гора Эльбрус',
-    src: require('./../images/2.png')
+    src: require('./images/2.png')
   },
   {
     title: 'Домбай',
-    src: require('./../images/3.png')
+    src: require('./images/3.png')
   },
   {
     title: 'Карачаево-Черкесская Республика',
-    src: require('./../images/1.png')
+    src: require('./images/1.png')
   }
 ]
 
