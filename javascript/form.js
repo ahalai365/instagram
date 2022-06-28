@@ -2,19 +2,15 @@ import { InputManager } from './input-manager.js';
 import { InputValidator } from './validator.js'
 
 export class FormConstructor {
-  constructor({onSubmit, rules, config, inputErrorClassName}){
+  constructor({onSubmit, rules, config}){
     this.onSubmit = onSubmit;
-    this.rules = rules;
     this._form = document.querySelector(config.formSelector);
+    this.inputElement = this._form.querySelectorAll(config.inputClassNameSelector);
 
-    this.inputClassName = this._form.querySelectorAll(config.inputClassNameSelector);
-    this.inputErrorClassName = inputErrorClassName;
+    this.button = this._form.querySelector(config.submitSelector);
+    this.chooseSubmitButtonStateCb = () => this._chooseSubmitButtonState();
 
-    this.submitSelector = config.submitSelector;
-        
-    this.chooseSubmitButtonStateCb = () => this.chooseSubmitButtonState(this._form);
-
-    this._inputManagers = this.inputClassName.forEach((currentInput) => {
+    this._inputManagers = this.inputElement.forEach((currentInput) => {
       new InputManager(currentInput, new InputValidator(rules[currentInput.name]), this.chooseSubmitButtonStateCb);
     });
 
@@ -25,19 +21,17 @@ export class FormConstructor {
         if (haveError) {
           return
         }
-      
-        this.onSubmit(this.inputClassName);
+        this.onSubmit(this.inputElement);
       });
   }
 
-  chooseSubmitButtonState(targetForm) {
+  _chooseSubmitButtonState(targetForm) {
   let error = targetForm.querySelector('.popup__input_invalid');
-  const button = targetForm.querySelector(this.submitSelector);
 
   if (error) {
-    button.disabled = true;
+    this.button.disabled = true;
     return 
   }
-  button.disabled = false;
+  this.button.disabled = false;
   }
 }

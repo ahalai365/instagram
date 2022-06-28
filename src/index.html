@@ -3,9 +3,6 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- <link rel="stylesheet" href="./public/vendor/normalize.css">
-        <link rel="stylesheet" href="./public/vendor/reset.css">
-        <link rel="stylesheet" href="./public/pages/index.css"> -->
         <title>Попапы</title>
     </head>
     <body>
@@ -15,18 +12,18 @@
                 <img class="element__img">
                 <div class="element__footer">
                     <h3 class="element__title"></h3>
-                    <img class="element__like  opacity" src="./../images/dislike.png">
+                    <img class="element__like  opacity" src=<%=require("./../images/dislike.png")%>>
                 </div>
             </div>    
         </template>
 
         <div class="page">
             <header class="header">
-                <img class="logo" src="./../images/logo.png">
+                <img class="logo" src=<%=require("./../images/logo.png")%>>
             </header>
             <div class="content">
                 <section class="profile">
-                    <img class="profile__avatar" src="./../images/avatar.png">
+                    <img class="profile__avatar" src=<%=require("./../images/avatar.png")%>>
                     <div class="profile__info">
                         <div class="profile__title">
                             <h1 class="profile__name">Жак-Ив Кусто</h1>

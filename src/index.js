@@ -1,6 +1,6 @@
-import './public/pages/index.css';
-import './public/vendor/reset.css';
-import './public/vendor/normalize.css';
+import './../public/vendor/reset.css';
+import './../public/vendor/normalize.css';
+import './../public/pages/index.css';
 
 import { Card } from '../javascript/cards.js';
 import { FormConstructor } from '../javascript/form.js'
@@ -10,27 +10,27 @@ import { PopupManager } from '../javascript/popup.js';
 const data = [
   {
     title: 'Карачаевск',
-    src: './images/1.png'
+    src: require('./../images/1.png')
   },
   {
     title: 'Гора Эльбрус',
-    src: './images/2.png'
+    src: require('./../images/2.png')
   },
   {
     title: 'Домбай',
-    src: './images/3.png'
+    src: require('./../images/3.png')
   },
   {
     title: 'Гора Эльбрус',
-    src: './images/2.png'
+    src: require('./../images/2.png')
   },
   {
     title: 'Домбай',
-    src: './images/3.png'
+    src: require('./../images/3.png')
   },
   {
     title: 'Карачаево-Черкесская Республика',
-    src: './images/1.png'
+    src: require('./../images/1.png')
   }
 ]
 
@@ -116,25 +116,24 @@ const editForm = new FormConstructor({
   config: {
     formSelector: '.form__edit',
     inputClassNameSelector: '.popup__input',
-    inputErrorClassName: 'popup__error',
     submitSelector: '.popup__save',
   }
 });
 
 const addForm = new FormConstructor({
   onSubmit: (inputElement) => {
-  const element = {
-  title: '',
-  src: ''
-  };
+    const element = {
+    title: '',
+    src: ''
+    };
 
-  element.title = inputElement[0].value;
-  element.src = inputElement[1].value;
+    element.title = inputElement[0].value;
+    element.src = inputElement[1].value;
 
-  const card = new Card(element, CARD_TEMPLATE);
-  card.onClick(handleClickCard);
-  ELEMENTS.append(card.render);
-  addPopup.closePopup();
+    const card = new Card(element, CARD_TEMPLATE);
+    card.onClick(handleClickCard);
+    ELEMENTS.append(card.render);
+    addPopup.closePopup();
   },
 
   rules: {
@@ -164,7 +163,6 @@ const addForm = new FormConstructor({
   config: {
     formSelector: '.form__add',
     inputClassNameSelector: '.popup__input',
-    inputErrorClassName: 'popup__error',
     submitSelector: '.popup__save',
   }
 });
