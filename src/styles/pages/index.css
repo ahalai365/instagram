@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url("./../body/body.css");
 @import url("./../page/page.css");
+@import url("./../blocks/account/account.css");
+@import url("./../blocks/account/__sign-in/account__sign-in.css");
+@import url("./../blocks/account/__registration/account__registration.css");
 @import url("./../blocks/content/content.css");
 @import url("./../blocks/element/element.css");
 @import url("./../blocks/element/__footer/element__footer.css");
@@ -21,8 +24,8 @@
 @import url("./../blocks/popup/__error/popup__error.css");
 @import url("./../blocks/popup/__input/popup__input.css");
 @import url("./../blocks/popup/__input/_invalid/popup__input_invalid.css");
-@import url("./../blocks/popup/__save/popup__save.css");
-@import url('./../blocks/popup/__save/_disable/popup__save_disable.css');
+@import url("./../blocks/popup/__submit/popup__submit.css");
+@import url('./../blocks/popup/__submit/_disable/popup__submit_disable.css');
 @import url("./../blocks/popup/__title/popup__title.css");
 @import url("./../blocks/popup/__overlay/popup__overlay.css");
 @import url("./../blocks/popup/_active/popup_active.css");

@@ -62,10 +62,7 @@ let profilePopup = new PopupManager(popupEdit);
 
 buttonEdit.addEventListener( 'click', () => {
   profilePopup.openPopup();
-})
-
-const elementProfileName = document.querySelector('.profile__name');
-const elementProfileSubtitle = document.querySelector('.profile__subtitle');
+});
 
 //Добавление фотографий
 const popupAdd = document.querySelector('.popup_add');
@@ -75,10 +72,33 @@ let addPopup = new PopupManager(popupAdd);
 
 buttonAdd.addEventListener( 'click', () => {
   addPopup.openPopup();
-})
+});
+
+//Вход
+const popupSignIn = document.querySelector('.popup_sign-in');
+const buttonSignIn = document.querySelector('.account__sign-in');
+
+let signInPopup = new PopupManager(popupSignIn);
+
+buttonSignIn.addEventListener( 'click', () => {
+  signInPopup.openPopup();
+});
+
+//Регистрация
+const popupRegistration = document.querySelector('.popup_registration');
+const buttonRegistration = document.querySelector('.account__registration');
+
+let registrationPopup = new PopupManager(popupRegistration);
+
+buttonRegistration.addEventListener( 'click', () => {
+  registrationPopup.openPopup();
+});
 
 const editForm = new FormConstructor({
   onSubmit: (inputElement) => {
+    const elementProfileName = document.querySelector('.profile__name');
+    const elementProfileSubtitle = document.querySelector('.profile__subtitle');
+
     elementProfileName.textContent = inputElement[0].value;
     elementProfileSubtitle.textContent = inputElement[1].value;
 
@@ -116,7 +136,7 @@ const editForm = new FormConstructor({
   config: {
     formSelector: '.form__edit',
     inputClassNameSelector: '.popup__input',
-    submitSelector: '.popup__save',
+    submitSelector: '.popup__submit',
   }
 });
 
@@ -163,7 +183,97 @@ const addForm = new FormConstructor({
   config: {
     formSelector: '.form__add',
     inputClassNameSelector: '.popup__input',
-    submitSelector: '.popup__save',
+    submitSelector: '.popup__submit',
   }
 });
 
+const signInForm = new FormConstructor({
+  onSubmit: console.log('click!'),
+
+  rules: {
+    email: {
+      isRequired: true,
+      empty: {
+        message: 'Укажите e-mail'
+      },
+      regExp: {
+        rule: '@',
+        massage: 'Это не e-mail'
+      }
+    },
+    
+    password: {
+      isRequired: true,
+      empty: {
+        message: 'Укажите пароль'
+      },
+    }
+  },
+
+  config: {
+    formSelector: '.form__sign-in',
+    inputClassNameSelector: '.popup__input',
+    submitSelector: '.popup__sign-in',
+  }
+});
+
+const registrationForm = new FormConstructor({
+  onSubmit: console.log('click!'),
+  
+  rules: {
+    email: {
+      isRequired: true,
+      empty: {
+        message: 'Укажите e-mail'
+      },
+      regExp: {
+        rule: '@',
+        massage: 'Это не e-mail'
+      }
+    },
+    
+    password: {
+      isRequired: true,
+      empty: {
+        message: 'Укажите пароль'
+      },
+    },
+
+    passwordRepit: {
+      isRequired: true,
+    },
+    
+    name: {
+      isRequired: true,
+      empty: {
+        message: 'Укажите имя'
+      },
+      minLength: {
+        length: 3,
+        message: 'Имя слишком короткое'
+      },
+      maxLength: {
+        length: 20,
+        message: 'Имя слишком длинное'
+      }
+    },
+
+    subtitle: {
+      isRequired: true,
+      empty: {
+        message: 'Укажите профессию'
+      },
+      minLength: {
+        length: 3,
+        message: 'Название слишком короткое'
+      }
+    }
+
+  },
+
+  config: {
+    formSelector: '.form__registration',
+    inputClassNameSelector: '.popup__input',
+    submitSelector: '.popup__registration',
+  }
+});

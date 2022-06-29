@@ -20,6 +20,11 @@
         <div class="page">
             <header class="header">
                 <img class="logo" src=<%=require("./images/logo.png")%>>
+                <div class="account">
+                    <a class="account__sign-in opacity">Вход</a>
+                    <span> / </span>
+                    <a class="account__registration opacity">Зарегистрироваться</a>
+                </div>
             </header>
             <div class="content">
                 <section class="profile">
@@ -39,6 +44,9 @@
                     <div class="footer__copy">&copy; 2020 Mesto Russia</div>
                 </footer>
             </div>
+
+            <!-- Попапы -->
+
             <div class="popup popup_edit">
                 <div class="popup__overlay"></div>
                 <div class="popup__content">
@@ -47,12 +55,13 @@
                     <form class="form__edit">   
                         <input type="text" name="title"  class="popup__input" value="Жак-Ив Кусто" placeholder="Укажате имя">
                         <input type="text" name="subtitle" class="popup__input" value="Исследователь океана" placeholder="Укажите деятильность">
-                        <button name="submitProfile" type="submit" class="popup__save opacity">Сохранить</button>
+                        <button name="submitProfile" type="submit" class="popup__submit opacity">Сохранить</button>
                     </form>
 
                         <button class="popup__close opacity"></button>
                 </div>
             </div>
+
             <div class="popup popup_add">
                 <div class="popup__overlay"></div>
                 <div class="popup__content">
@@ -61,18 +70,53 @@
                     <form class="form__add">
                         <input type="text" name="title" class="popup__input" placeholder="Укажате название">
                         <input type="url" name="browse" class="popup__input" placeholder="Укажите путь">
-                        <button name="submitPlace" type="submit" class="popup__save opacity">Сохранить</button>
+                        <button name="submitPlace" type="submit" class="popup__submit opacity">Сохранить</button>
                     </form>
 
                     <button class="popup__close opacity"></button>
                 </div>  
             </div>
+
             <div class="popup popup_view">
                 <div class="popup__overlay"></div>
                 <div class="popup__content_view">
                     <img class="popup__img" src="./../images/1.png" alt="???">
                     <button class="popup__close opacity"></button>
                 </div>
+            </div>
+
+            <div class="popup popup_sign-in">
+                <div class="popup__overlay"></div>
+                <div class="popup__content">
+                    <div class="popup__title">Вход</div>
+                    
+                    <form class="form__sign-in">
+                        <input type="email" name="email" class="popup__input" placeholder="Введите e-mail">
+                        <input type="password" name="password" class="popup__input" placeholder="Введите пароль">
+                        <button name="submitPlace" type="submit" class="popup__sign-in opacity popup__submit">Войти</button>
+                    </form>
+
+                    <button class="popup__close opacity"></button>
+                </div>  
+            </div>
+
+            <div class="popup popup_registration">
+                <div class="popup__overlay"></div>
+                <div class="popup__content">
+                    <div class="popup__title">Регистрация</div>
+                    
+                    <form class="form__registration">
+                        <input type="email" name="email" class="popup__input" placeholder="Введите e-mail">
+                        <input type="password" name="password" class="popup__input" placeholder="Введите пароль">
+                        <input type="password" name="passwordRepit" class="popup__input" placeholder="Повторите пароль">
+                        <input type="text" name="name" class="popup__input" placeholder="Введите имя">
+                        <input type="text" name="subtitle" class="popup__input" placeholder="Введите профессию">
+                        <input type="url" name="browse" class="popup__input" placeholder="Укажите путь к аватару">
+                        <button name="submitPlace" type="submit" class="popup__registration opacity popup__submit">Зарегистрироваться</button>
+                    </form>
+
+                    <button class="popup__close opacity"></button>
+                </div>  
             </div>
         </div>
     </body>

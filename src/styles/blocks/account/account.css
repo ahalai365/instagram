@@ -1,0 +1,15 @@
+.account {
+  color: #FFFFFF;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 21.78px;
+  padding-top: 16px;
+}
+@media (max-width: 630px) {
+  .account {
+      font-weight: 400;
+      font-size: 11px;
+      line-height: 16.94px;
+      padding-left: 15px;
+  }
+}

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf dist && webpack",
-    "dev": "webpack serve"
+    "build": "rimraf dist && webpack --config ./config/webpack.config.js",
+    "dev": "webpack serve --config ./config/webpack.config.js"
   },
   "repository": {
     "type": "git",
