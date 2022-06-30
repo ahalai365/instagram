@@ -5,6 +5,7 @@ import './styles/pages/index.css';
 import { Card } from './javascript/cards.js';
 import { FormConstructor } from './javascript/form.js'
 import { PopupManager } from './javascript/popup.js';
+import { Profile } from './javascript/profile.js';
 
 //Создание карточек
 const data = [
@@ -188,7 +189,8 @@ const addForm = new FormConstructor({
 });
 
 const signInForm = new FormConstructor({
-  onSubmit: console.log('click!'),
+  onSubmit: () => {
+    console.log('click!') },
 
   rules: {
     email: {
@@ -196,9 +198,9 @@ const signInForm = new FormConstructor({
       empty: {
         message: 'Укажите e-mail'
       },
-      regExp: {
-        rule: '@',
-        massage: 'Это не e-mail'
+      fn: {
+        execute: function(value) { return value.includes('@'); },
+        message: 'Это не e-mail'
       }
     },
     
@@ -218,7 +220,8 @@ const signInForm = new FormConstructor({
 });
 
 const registrationForm = new FormConstructor({
-  onSubmit: console.log('click!'),
+  onSubmit: () => {
+    console.log('click!') },
   
   rules: {
     email: {
@@ -227,8 +230,8 @@ const registrationForm = new FormConstructor({
         message: 'Укажите e-mail'
       },
       regExp: {
-        rule: '@',
-        massage: 'Это не e-mail'
+        rule: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        message: 'Это не e-mail'
       }
     },
     
@@ -240,7 +243,7 @@ const registrationForm = new FormConstructor({
     },
 
     passwordRepit: {
-      isRequired: true,
+      isMatch: true,
     },
     
     name: {
@@ -267,6 +270,17 @@ const registrationForm = new FormConstructor({
         length: 3,
         message: 'Название слишком короткое'
       }
+    },
+
+    browse: {
+      isRequired: true,
+      empty: {
+        message: 'Укажите адрес изображения'
+      },
+      regExp: {
+        rule: /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g,
+        message: 'Попробуйте начать с https'
+      }
     }
 
   },
@@ -275,5 +289,25 @@ const registrationForm = new FormConstructor({
     formSelector: '.form__registration',
     inputClassNameSelector: '.popup__input',
     submitSelector: '.popup__registration',
+  }
+});
+
+// let jepa = () => {
+//   let array = document.querySelectorAll('.popup__input');
+  
+//   array.filter((element) => {
+//     if (element.name === 'password') {
+//       return element
+//     }
+//   });
+// }
+
+// jepa();
+
+const profile = new Profile({
+  profile: {
+    name: 'Жак-Ив Кусто',
+    subtitle: 'Исследователь океана',
+    avatar: require('./images/avatar.png'),
   }
 });

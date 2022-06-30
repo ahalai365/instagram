@@ -1,4 +1,4 @@
-import { validateInputIsEmpty, validateMinLength, validateMaxLength, validateRegExp} from './validation-rules.js'
+import { validateInputIsEmpty, validateMinLength, validateMaxLength, validateRegExp, validateEmail, validatePasswordMatch} from './validation-rules.js'
 
 export class InputValidator {
   constructor (rules) {
@@ -26,8 +26,20 @@ export class InputValidator {
 
     if (this.validationRules.regExp) {
       if (!validateRegExp(value, this.validationRules.regExp.rule)) {
-        return this.validationRules.regExp.text;
+        return this.validationRules.regExp.message;
       }
     }
+
+    if (this.validationRules.fn) {
+      if (!validateEmail(value, this.validationRules.fn.execute)) {
+        console.log(this.validationRules.fn.message);
+        return this.validationRules.fn.message;
+      }
+    }
+    // if (this.validationRules.isMatch) {
+    //   if(!validatePasswordMatch(value, this.)) {
+    //     return this.validationRules.isMatch.message;
+    //   }
+    // }
   }
 }

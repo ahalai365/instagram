@@ -8,7 +8,7 @@ export class FormConstructor {
     this.inputElement = this._form.querySelectorAll(config.inputClassNameSelector);
 
     this.button = this._form.querySelector(config.submitSelector);
-    this.chooseSubmitButtonStateCb = () => this._chooseSubmitButtonState();
+    this.chooseSubmitButtonStateCb = () => this._chooseSubmitButtonState(this._form);
 
     this._inputManagers = this.inputElement.forEach((currentInput) => {
       new InputManager(currentInput, new InputValidator(rules[currentInput.name]), this.chooseSubmitButtonStateCb);
