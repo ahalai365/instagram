@@ -21,7 +21,14 @@ export class FormConstructor {
         if (haveError) {
           return
         }
-        this.onSubmit(this.inputElement);
+
+        const result = {};
+
+        this.inputElement.forEach((currentInput) => {
+          result[currentInput.name] = currentInput.value;
+        });
+
+        this.onSubmit(result);
       });
   }
 
@@ -34,4 +41,6 @@ export class FormConstructor {
   }
   this.button.disabled = false;
   }
+
+  
 }

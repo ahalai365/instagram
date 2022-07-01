@@ -96,12 +96,12 @@ buttonRegistration.addEventListener( 'click', () => {
 });
 
 const editForm = new FormConstructor({
-  onSubmit: (inputElement) => {
+  onSubmit: (result) => {
     const elementProfileName = document.querySelector('.profile__name');
     const elementProfileSubtitle = document.querySelector('.profile__subtitle');
 
-    elementProfileName.textContent = inputElement[0].value;
-    elementProfileSubtitle.textContent = inputElement[1].value;
+    elementProfileName.textContent = result.title;
+    elementProfileSubtitle.textContent = result.subtitle;
 
     profilePopup.closePopup();
   },
@@ -142,16 +142,9 @@ const editForm = new FormConstructor({
 });
 
 const addForm = new FormConstructor({
-  onSubmit: (inputElement) => {
-    const element = {
-    title: '',
-    src: ''
-    };
-
-    element.title = inputElement[0].value;
-    element.src = inputElement[1].value;
-
-    const card = new Card(element, CARD_TEMPLATE);
+  onSubmit: (result) => {
+    
+    const card = new Card(result, CARD_TEMPLATE);
     card.onClick(handleClickCard);
     ELEMENTS.append(card.render);
     addPopup.closePopup();
