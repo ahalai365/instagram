@@ -1,15 +1,15 @@
 export class Profile {
-  constructor({ profile }) {
+  constructor({ profile, config }) {
     this.name = profile.name;
     this.subtitle = profile.subtitle;
-    this.avatar = profile.avatar
+    this.avatar = profile.avatar;
 
-    let profileName = document.querySelector('.profile__name');
-    let profileSubtitle = document.querySelector('.profile__subtitle');
-    let profileAvatar = document.querySelector('.profile__avatar');
+    this.nameElement = document.querySelector(config.nameSelector);
+    this.subtitleElement = document.querySelector(config.subtitleSelector);
+    this.avatarElement = document.querySelector(config.avatarSelector);
 
-    profileName.textContent = this.name;
-    profileSubtitle.textContent = this.subtitle;
-    profileAvatar.setAttribute('src', this.avatar);
+    this.nameElement.textContent = this.name;
+    this.subtitleElement.textContent = this.subtitle;
+    this.avatarElement.setAttribute('src', this.avatar);
   }
 }

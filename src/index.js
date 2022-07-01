@@ -309,5 +309,11 @@ const profile = new Profile({
     name: 'Жак-Ив Кусто',
     subtitle: 'Исследователь океана',
     avatar: require('./images/avatar.png'),
+  },
+
+  config: {
+    nameSelector: '.profile__name',
+    subtitleSelector: '.profile__subtitle',
+    avatarSelector: '.profile__avatar',
   }
 });
