@@ -95,14 +95,23 @@ buttonRegistration.addEventListener( 'click', () => {
   registrationPopup.openPopup();
 });
 
+const profile = new Profile({
+  profile: {
+    name: 'Жак-Ив Кусто',
+    subtitle: 'Исследователь океана',
+    avatar: require('./images/avatar.png'),
+  },
+
+  config: {
+    nameSelector: '.profile__name',
+    subtitleSelector: '.profile__subtitle',
+    avatarSelector: '.profile__avatar',
+  }
+});
+
 const editForm = new FormConstructor({
   onSubmit: (result) => {
-    const elementProfileName = document.querySelector('.profile__name');
-    const elementProfileSubtitle = document.querySelector('.profile__subtitle');
-
-    elementProfileName.textContent = result.title;
-    elementProfileSubtitle.textContent = result.subtitle;
-
+    profile.onSubmit(result);
     profilePopup.closePopup();
   },
 
@@ -296,17 +305,3 @@ const registrationForm = new FormConstructor({
 // }
 
 // jepa();
-
-const profile = new Profile({
-  profile: {
-    name: 'Жак-Ив Кусто',
-    subtitle: 'Исследователь океана',
-    avatar: require('./images/avatar.png'),
-  },
-
-  config: {
-    nameSelector: '.profile__name',
-    subtitleSelector: '.profile__subtitle',
-    avatarSelector: '.profile__avatar',
-  }
-});

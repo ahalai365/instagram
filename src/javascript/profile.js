@@ -12,4 +12,10 @@ export class Profile {
     this.subtitleElement.textContent = this.subtitle;
     this.avatarElement.setAttribute('src', this.avatar);
   }
+
+  onSubmit(result) {
+    this.nameElement.textContent = result.title;
+    this.subtitleElement.textContent = result.subtitle;
+    this.avatarElement.setAttribute('src', result.avatar);
+  }
 }
