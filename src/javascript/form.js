@@ -10,8 +10,10 @@ export class FormConstructor {
     this.button = this._form.querySelector(config.submitSelector);
     this.chooseSubmitButtonStateCb = () => this._chooseSubmitButtonState(this._form);
 
+    this.getValuesCb = () => this.getValues();
+
     this._inputManagers = this.inputElement.forEach((currentInput) => {
-      new InputManager(currentInput, new InputValidator(rules[currentInput.name]), this.chooseSubmitButtonStateCb);
+      new InputManager(currentInput, new InputValidator(rules[currentInput.name],currentInput.name, this.getValuesCb), this.chooseSubmitButtonStateCb);
     });
 
     this._form.addEventListener('submit', (e) => {
@@ -22,13 +24,7 @@ export class FormConstructor {
           return
         }
 
-        const result = {};
-
-        this.inputElement.forEach((currentInput) => {
-          result[currentInput.name] = currentInput.value;
-        });
-
-        this.onSubmit(result);
+        this.onSubmit();
       });
   }
 
@@ -42,5 +38,13 @@ export class FormConstructor {
   this.button.disabled = false;
   }
 
+  getValues() {
+    const result = {};
+
+    this.inputElement.forEach((currentInput) => {
+      result[currentInput.name] = currentInput.value;
+    });
   
+    return result;
+  }
 }

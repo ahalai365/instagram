@@ -1,45 +1,44 @@
-import { validateInputIsEmpty, validateMinLength, validateMaxLength, validateRegExp, validateEmail, validatePasswordMatch} from './validation-rules.js'
+import { validateInputIsEmpty, validateMinLength, validateMaxLength, validateRegExp, validateEmail } from './validation-rules.js'
 
 export class InputValidator {
-  constructor (rules) {
+  constructor (rules, currentInputName, getValues) {
     this.validationRules = rules;
+    this.getValues = getValues;
+    this.currentInputName = currentInputName;
   }
 
-  validate(value) {
+  validate() {
+    const values = this.getValues();
+    const currentValue = values[this.currentInputName];
+
     if (this.validationRules.isRequired) {
-      if (!validateInputIsEmpty(value)) {  
+      if (!validateInputIsEmpty(currentValue)) {  
         return this.validationRules.empty.message;
       }
     }
   
     if (this.validationRules.minLength) {
-      if (!validateMinLength(value, this.validationRules.minLength.length)) {
+      if (!validateMinLength(currentValue, this.validationRules.minLength.length)) {
         return this.validationRules.minLength.message;
       }
     }
 
     if (this.validationRules.maxLength) {
-      if (!validateMaxLength(value, this.validationRules.maxLength.length)) {
+      if (!validateMaxLength(currentValue, this.validationRules.maxLength.length)) {
         return this.validationRules.maxLength.message;
       }
     }
 
     if (this.validationRules.regExp) {
-      if (!validateRegExp(value, this.validationRules.regExp.rule)) {
+      if (!validateRegExp(currentValue, this.validationRules.regExp.rule)) {
         return this.validationRules.regExp.message;
       }
     }
 
     if (this.validationRules.fn) {
-      if (!validateEmail(value, this.validationRules.fn.execute)) {
-        console.log(this.validationRules.fn.message);
+      if (!this.validationRules.fn.execute(currentValue, values)) {
         return this.validationRules.fn.message;
       }
     }
-    // if (this.validationRules.isMatch) {
-    //   if(!validatePasswordMatch(value, this.)) {
-    //     return this.validationRules.isMatch.message;
-    //   }
-    // }
   }
 }

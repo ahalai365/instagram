@@ -6,6 +6,7 @@ import { Card } from './javascript/cards.js';
 import { FormConstructor } from './javascript/form.js'
 import { PopupManager } from './javascript/popup.js';
 import { Profile } from './javascript/profile.js';
+import { Auth } from './javascript/auth.js';
 
 //Создание карточек
 const data = [
@@ -85,6 +86,30 @@ buttonSignIn.addEventListener( 'click', () => {
   signInPopup.openPopup();
 });
 
+let auth = new Auth({
+  config: {
+    contentSelector: '.content',
+    signInSelector: '.account__sign-in',
+    templateSelector: '#account-template',
+  },
+});
+
+auth.isAuth(true);
+
+const profile = new Profile({
+  profile: {
+    name: 'Жак-Ив Кусто',
+    discription: 'Исследователь океана',
+    avatar: require('./images/avatar.png'),
+  },
+  
+  config: {
+    nameSelector: '.profile__name',
+    discriptionSelector: '.profile__subtitle',
+    avatarSelector: '.profile__avatar',
+  }
+});
+
 //Регистрация
 const popupRegistration = document.querySelector('.popup_registration');
 const buttonRegistration = document.querySelector('.account__registration');
@@ -95,28 +120,14 @@ buttonRegistration.addEventListener( 'click', () => {
   registrationPopup.openPopup();
 });
 
-const profile = new Profile({
-  profile: {
-    name: 'Жак-Ив Кусто',
-    subtitle: 'Исследователь океана',
-    avatar: require('./images/avatar.png'),
-  },
-
-  config: {
-    nameSelector: '.profile__name',
-    subtitleSelector: '.profile__subtitle',
-    avatarSelector: '.profile__avatar',
-  }
-});
-
 const editForm = new FormConstructor({
-  onSubmit: (result) => {
-    profile.onSubmit(result);
+  onSubmit: () => {
+    profile.onSubmit(editForm.getValues());
     profilePopup.closePopup();
   },
 
   rules: {
-    title: {
+    name: {
       isRequired: true,
       empty: {
         message: 'Укажите имя'
@@ -131,7 +142,7 @@ const editForm = new FormConstructor({
       }
     },
     
-    subtitle: {
+    discription: {
       isRequired: true,
       empty: {
         message: 'Укажите профессию'
@@ -190,9 +201,13 @@ const addForm = new FormConstructor({
   }
 });
 
+// auth.isAuth(true);
+
 const signInForm = new FormConstructor({
   onSubmit: () => {
-    console.log('click!') },
+    auth.isAuth(true);
+    signInPopup.closePopup();
+  },
 
   rules: {
     email: {
@@ -245,7 +260,19 @@ const registrationForm = new FormConstructor({
     },
 
     passwordRepit: {
-      isMatch: true,
+      isRequired: true,
+      empty: {
+        message: 'Повторите пароль'
+      },
+      fn: {
+        execute: function(value, values) {
+          if (value === values.password) {
+            return true
+          }
+          return false
+        },
+        message: 'Пароль не совпадает'
+      }
     },
     
     name: {
@@ -263,7 +290,7 @@ const registrationForm = new FormConstructor({
       }
     },
 
-    subtitle: {
+    discription: {
       isRequired: true,
       empty: {
         message: 'Укажите профессию'
@@ -274,7 +301,7 @@ const registrationForm = new FormConstructor({
       }
     },
 
-    browse: {
+    avatar: {
       isRequired: true,
       empty: {
         message: 'Укажите адрес изображения'
@@ -293,15 +320,3 @@ const registrationForm = new FormConstructor({
     submitSelector: '.popup__registration',
   }
 });
-
-// let jepa = () => {
-//   let array = document.querySelectorAll('.popup__input');
-  
-//   array.filter((element) => {
-//     if (element.name === 'password') {
-//       return element
-//     }
-//   });
-// }
-
-// jepa();

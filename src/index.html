@@ -17,6 +17,12 @@
             </div>    
         </template>
 
+        <template id="account-template">
+            <a class="account__auth"></a>
+            <span> / </span>
+            <a class="account__exit opacity">Выход</a>
+        </template>
+
         <div class="page">
             <header class="header">
                 <img class="logo" src=<%=require("./images/logo.png")%>>
@@ -41,11 +47,10 @@
                 </section>
                 <section class="elements">
                 </section>
-                <footer class="footer">
-                    <div class="footer__copy">&copy; 2020 Mesto Russia</div>
-                </footer>
             </div>
-
+            <footer class="footer">
+                <div class="footer__copy">&copy; 2020 Mesto Russia</div>
+            </footer>
             <!-- Попапы -->
 
             <div class="popup popup_edit">
@@ -54,8 +59,8 @@
                     <div class="popup__title">Редактировать профиль</div>
 
                     <form class="form__edit">   
-                        <input type="text" name="title"  class="popup__input" value="Жак-Ив Кусто" placeholder="Укажате имя">
-                        <input type="text" name="subtitle" class="popup__input" value="Исследователь океана" placeholder="Укажите деятильность">
+                        <input type="text" name="name"  class="popup__input" value="Жак-Ив Кусто" placeholder="Укажате имя">
+                        <input type="text" name="discription" class="popup__input" value="Исследователь океана" placeholder="Укажите деятильность">
                         <button name="submitProfile" type="submit" class="popup__submit opacity">Сохранить</button>
                     </form>
 
@@ -111,8 +116,8 @@
                         <input type="password" name="password" class="popup__input" placeholder="Введите пароль">
                         <input type="password" name="passwordRepit" class="popup__input" placeholder="Повторите пароль">
                         <input type="text" name="name" class="popup__input" placeholder="Введите имя">
-                        <input type="text" name="subtitle" class="popup__input" placeholder="Введите профессию">
-                        <input type="url" name="browse" class="popup__input" placeholder="Укажите путь к аватару">
+                        <input type="text" name="discription" class="popup__input" placeholder="Введите профессию">
+                        <input type="url" name="avatar" class="popup__input" placeholder="Укажите путь к аватару">
                         <button name="submitPlace" type="submit" class="popup__registration opacity popup__submit">Зарегистрироваться</button>
                     </form>
 

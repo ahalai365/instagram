@@ -5,6 +5,7 @@
 @import url("./../blocks/account/__sign-in/account__sign-in.css");
 @import url("./../blocks/account/__registration/account__registration.css");
 @import url("./../blocks/content/content.css");
+@import url("./../blocks/content/_active/content_active.css");
 @import url("./../blocks/element/element.css");
 @import url("./../blocks/element/__footer/element__footer.css");
 @import url("./../blocks/element/__img/element__img.css");

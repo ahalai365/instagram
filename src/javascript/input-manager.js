@@ -8,11 +8,11 @@ export class InputManager {
   }
 
   _handleInputChange = () => {
-    let value = this.inputElement.value;
+    // let value = this.inputElement.value;
     
     this._clearErrors();
 
-    const error = this._validator.validate(value);
+    const error = this._validator.validate();
 
     if (error) {
       this.inputElement.classList.add(this.invalidClassName);

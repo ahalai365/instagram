@@ -25,7 +25,7 @@ export class Card {
     this._likeButton.addEventListener('click', this._likeClickHandler);
   }
 
-    _likeClickHandler = (event) => {
+    _likeClickHandler = () => {
       if (this._likeButton.classList.contains('element__like')) {
         if (this._likeButton.classList.contains(LIKE_ACTIVE_CLASS)) {
           this._likeButton.classList.remove(LIKE_ACTIVE_CLASS);

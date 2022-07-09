@@ -1,21 +1,21 @@
 export class Profile {
   constructor({ profile, config }) {
     this.name = profile.name;
-    this.subtitle = profile.subtitle;
+    this.discription = profile.discription;
     this.avatar = profile.avatar;
 
     this.nameElement = document.querySelector(config.nameSelector);
-    this.subtitleElement = document.querySelector(config.subtitleSelector);
+    this.discriptionElement = document.querySelector(config.discriptionSelector);
     this.avatarElement = document.querySelector(config.avatarSelector);
 
     this.nameElement.textContent = this.name;
-    this.subtitleElement.textContent = this.subtitle;
+    this.discriptionElement.textContent = this.discription;
     this.avatarElement.setAttribute('src', this.avatar);
   }
 
   onSubmit(result) {
-    this.nameElement.textContent = result.title;
-    this.subtitleElement.textContent = result.subtitle;
-    this.avatarElement.setAttribute('src', result.avatar);
+    this.nameElement.textContent = result.name;
+    this.discriptionElement.textContent = result.discription;
+    // this.avatarElement.setAttribute('src', result.avatar);
   }
 }

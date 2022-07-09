@@ -26,18 +26,3 @@ export function validateRegExp(string, rule) {
   var res = string.match(rule);
   return (res !== null)
 };
-
-export function validateEmail(value, execute) {
-  console.log(execute(value));
-  if (!execute(value)){
-    return false
-  }
-  return true
-}
-
-export function validatePasswordMatch(value, password) {
-  if (value !== password) {
-    return false
-  }
-return true
-};
