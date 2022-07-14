@@ -2,11 +2,11 @@ import './styles/vendor/reset.css';
 import './styles/vendor/normalize.css';
 import './styles/pages/index.css';
 
-import { Card } from './javascript/cards.js';
-import { FormConstructor } from './javascript/form.js'
-import { PopupManager } from './javascript/popup.js';
-import { Profile } from './javascript/profile.js';
-import { Auth } from './javascript/auth.js';
+import { Card } from './javascript/components/cards.js';
+import { FormConstructor } from './javascript/components/form.js'
+import { PopupManager } from './javascript/components/popup.js';
+import { Profile } from './javascript/components/profile.js';
+import { Auth } from './javascript/components/auth.js';
 
 //Создание карточек
 const data = [
@@ -85,31 +85,6 @@ let signInPopup = new PopupManager(popupSignIn);
 buttonSignIn.addEventListener( 'click', () => {
   signInPopup.openPopup();
 });
-
-let auth = new Auth({
-  config: {
-    contentSelector: '.content',
-    signInSelector: '.account__sign-in',
-    templateSelector: '#account-template',
-  },
-});
-
-auth.isAuth(true);
-
-const profile = new Profile({
-  profile: {
-    name: 'Жак-Ив Кусто',
-    discription: 'Исследователь океана',
-    avatar: require('./images/avatar.png'),
-  },
-  
-  config: {
-    nameSelector: '.profile__name',
-    discriptionSelector: '.profile__subtitle',
-    avatarSelector: '.profile__avatar',
-  }
-});
-
 //Регистрация
 const popupRegistration = document.querySelector('.popup_registration');
 const buttonRegistration = document.querySelector('.account__registration');
@@ -201,8 +176,8 @@ const addForm = new FormConstructor({
   }
 });
 
-// auth.isAuth(true);
 
+//Форма входа
 const signInForm = new FormConstructor({
   onSubmit: () => {
     auth.isAuth(true);
@@ -236,9 +211,19 @@ const signInForm = new FormConstructor({
   }
 });
 
+//Выход из аккаунта
+const exitButton = document.querySelector('.account__exit');
+exitButton.addEventListener('click', () => {
+  auth.logOut()
+});
+
+//Форма регистрации
 const registrationForm = new FormConstructor({
   onSubmit: () => {
-    console.log('click!') },
+      auth.isAuth(registrationForm.getValues());
+      profile.onSubmit(registrationForm.getValues());
+      registrationPopup.closePopup();
+  },
   
   rules: {
     email: {
@@ -269,7 +254,6 @@ const registrationForm = new FormConstructor({
           if (value === values.password) {
             return true
           }
-          return false
         },
         message: 'Пароль не совпадает'
       }
@@ -318,5 +302,24 @@ const registrationForm = new FormConstructor({
     formSelector: '.form__registration',
     inputClassNameSelector: '.popup__input',
     submitSelector: '.popup__registration',
+  }
+});
+
+let auth = new Auth({
+  config: {
+    contentSelector: '.content',
+    signInSelector: '.account__sign-in',
+    registrationSelector: '.account__registration',
+    authSelector: '.account__auth',
+    exitSelector: '.account__exit',
+  },
+});
+
+const profile = new Profile({
+  config: {
+    nameSelector: '.profile__name',
+    discriptionSelector: '.profile__subtitle',
+    avatarSelector: '.profile__avatar',
+    authSelector: '.account__auth',
   }
 });

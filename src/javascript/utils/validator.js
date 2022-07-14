@@ -1,4 +1,4 @@
-import { validateInputIsEmpty, validateMinLength, validateMaxLength, validateRegExp, validateEmail } from './validation-rules.js'
+import { validateInputIsEmpty, validateMinLength, validateMaxLength, validateRegExp } from './validation-rules.js'
 
 export class InputValidator {
   constructor (rules, currentInputName, getValues) {
@@ -8,8 +8,8 @@ export class InputValidator {
   }
 
   validate() {
-    const values = this.getValues();
-    const currentValue = values[this.currentInputName];
+    const allFormValues = this.getValues();
+    const currentValue = allFormValues[this.currentInputName];
 
     if (this.validationRules.isRequired) {
       if (!validateInputIsEmpty(currentValue)) {  
@@ -36,7 +36,7 @@ export class InputValidator {
     }
 
     if (this.validationRules.fn) {
-      if (!this.validationRules.fn.execute(currentValue, values)) {
+      if (!this.validationRules.fn.execute(currentValue, allFormValues)) {
         return this.validationRules.fn.message;
       }
     }

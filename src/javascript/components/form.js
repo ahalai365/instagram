@@ -1,5 +1,5 @@
 import { InputManager } from './input-manager.js';
-import { InputValidator } from './validator.js'
+import { InputValidator } from './../utils/validator.js'
 
 export class FormConstructor {
   constructor({onSubmit, rules, config}){
@@ -13,7 +13,13 @@ export class FormConstructor {
     this.getValuesCb = () => this.getValues();
 
     this._inputManagers = this.inputElement.forEach((currentInput) => {
-      new InputManager(currentInput, new InputValidator(rules[currentInput.name],currentInput.name, this.getValuesCb), this.chooseSubmitButtonStateCb);
+      new InputManager(
+        currentInput,
+        new InputValidator(
+          rules[currentInput.name],
+          currentInput.name, this.getValuesCb),
+          this.chooseSubmitButtonStateCb
+        );
     });
 
     this._form.addEventListener('submit', (e) => {

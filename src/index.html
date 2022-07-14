@@ -17,19 +17,15 @@
             </div>    
         </template>
 
-        <template id="account-template">
-            <a class="account__auth"></a>
-            <span> / </span>
-            <a class="account__exit opacity">Выход</a>
-        </template>
-
         <div class="page">
             <header class="header">
                 <img class="logo" src=<%=require("./images/logo.png")%>>
                 <div class="account">
-                    <a class="account__sign-in opacity">Вход</a>
-                    <span> / </span>
-                    <a class="account__registration opacity">Зарегистрироваться</a>
+                    <a class="account__sign-in opacity account_active">Вход</a>
+                    <a class="account__auth"></a>
+                    <span>&nbsp;/&nbsp;</span>
+                    <a class="account__registration opacity account_active">Зарегистрироваться</a>
+                    <a class="account__exit opacity">Выход</a>
                 </div>
             </header>
             <div class="content">

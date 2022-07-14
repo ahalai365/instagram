@@ -4,6 +4,8 @@
   font-size: 15px;
   line-height: 21.78px;
   padding-top: 16px;
+
+  display: flex;
 }
 @media (max-width: 630px) {
   .account {
