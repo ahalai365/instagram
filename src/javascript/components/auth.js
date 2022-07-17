@@ -5,21 +5,16 @@ export class Auth {
   constructor({ config }) {
     this.CONTENT_ACTIVE_CLASS = CONTENT_ACTIVE_CLASS;
 
-    this.user = null;
+    this._user = null;
 
     this.contentElement = document.querySelector(config.contentSelector);
-
     this.signInElement = document.querySelector(config.signInSelector);
     this.registrationElement = document.querySelector(config.registrationSelector);
     this.authElement = document.querySelector(config.authSelector);
     this.exitElement = document.querySelector(config.exitSelector);
   };
 
-  setUpuser({ user }){
-
-  }
-
-  isAuth(user) {
+  setupUser(user){
     if(user) {
       this.signInElement.classList.remove(ACCOUNT_ACTIVE_CLASS);
       this.registrationElement.classList.remove(ACCOUNT_ACTIVE_CLASS);
@@ -28,10 +23,40 @@ export class Auth {
       this.exitElement.classList.add(ACCOUNT_ACTIVE_CLASS);
       
       this.contentElement.classList.add(this.CONTENT_ACTIVE_CLASS);
-    };
+
+    } else {
+      
+    this.signInElement.classList.add(ACCOUNT_ACTIVE_CLASS);
+    this.registrationElement.classList.add(ACCOUNT_ACTIVE_CLASS);
+
+    this.authElement.classList.remove(ACCOUNT_ACTIVE_CLASS);
+    this.exitElement.classList.remove(ACCOUNT_ACTIVE_CLASS);
+    
+    this.contentElement.classList.remove(this.CONTENT_ACTIVE_CLASS);
+    }
+  }
+
+  onSetupUser(callback){
+    fetch('http://localhost:8200/user/register', {
+      method: 'POST', // POST PUT PATCH DELETE UPDATE OPTIONS HEAD
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(callback)
+
+    }).then((response) => {
+      if (response.ok) { // Status: 200
+        return response.json().then(responseBody => { // { success: true/false, error?, userId? }
+          console.log('USER', responseBody);
+        });
+      }
+      
+    }).catch(() => {
+      console.log('Сервер сломался!');
+    });
   }
 
   logOut() {
-    this.user = null;
+    return this._user = null;
   }
 };

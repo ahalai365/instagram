@@ -180,7 +180,7 @@ const addForm = new FormConstructor({
 //Форма входа
 const signInForm = new FormConstructor({
   onSubmit: () => {
-    auth.isAuth(true);
+    
     signInPopup.closePopup();
   },
 
@@ -214,14 +214,17 @@ const signInForm = new FormConstructor({
 //Выход из аккаунта
 const exitButton = document.querySelector('.account__exit');
 exitButton.addEventListener('click', () => {
-  auth.logOut()
+  auth.setupUser(auth.logOut());
 });
 
 //Форма регистрации
 const registrationForm = new FormConstructor({
   onSubmit: () => {
-      auth.isAuth(registrationForm.getValues());
+            
+      auth.setupUser(registrationForm.getValues());
+      auth.onSetupUser(registrationForm.getValues());
       profile.onSubmit(registrationForm.getValues());
+      
       registrationPopup.closePopup();
   },
   
@@ -305,7 +308,7 @@ const registrationForm = new FormConstructor({
   }
 });
 
-let auth = new Auth({
+const auth = new Auth({
   config: {
     contentSelector: '.content',
     signInSelector: '.account__sign-in',

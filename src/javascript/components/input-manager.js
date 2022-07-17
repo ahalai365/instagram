@@ -7,9 +7,7 @@ export class InputManager {
     domElement.addEventListener('input', this._handleInputChange);
   }
 
-  _handleInputChange = () => {
-    // let value = this.inputElement.value;
-    
+  _handleInputChange = () => {   
     this._clearErrors();
 
     const error = this._validator.validate();

@@ -4,6 +4,8 @@ export class Profile {
     this.discriptionElement = document.querySelector(config.discriptionSelector);
     this.avatarElement = document.querySelector(config.avatarSelector);
     this.authElement = document.querySelector(config.authSelector);
+
+    this.onsubmitCb = () => this.onSubmit;
   }
 
   onSubmit(result) {
