@@ -8,7 +8,7 @@ export class Profile {
     this.onsubmitCb = () => this.onSubmit;
   }
 
-  onSubmit(result) {
+  setupProfileData(result) {
     this.nameElement.textContent = result.name;
     this.discriptionElement.textContent = result.discription;
     this.avatarElement.setAttribute('src', result.avatar);

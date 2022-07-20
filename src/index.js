@@ -43,7 +43,7 @@ const popupView = document.querySelector('.popup_view')
 const previewImg = popupView.querySelector('.popup__img');
 const ELEMENTS = document.querySelector('.elements');
 
-let viewPopup = new PopupManager(popupView);
+const viewPopup = new PopupManager(popupView);
 
 function handleClickCard(src) {
   previewImg.src = src;
@@ -60,7 +60,7 @@ data.forEach((cardData) => {
 const popupEdit = document.querySelector('.popup_edit');
 const buttonEdit = document.querySelector('.profile__edit');
 
-let profilePopup = new PopupManager(popupEdit);
+const profilePopup = new PopupManager(popupEdit);
 
 buttonEdit.addEventListener( 'click', () => {
   profilePopup.openPopup();
@@ -70,7 +70,7 @@ buttonEdit.addEventListener( 'click', () => {
 const popupAdd = document.querySelector('.popup_add');
 const buttonAdd = document.querySelector('.profile__add');
 
-let addPopup = new PopupManager(popupAdd);
+const addPopup = new PopupManager(popupAdd);
 
 buttonAdd.addEventListener( 'click', () => {
   addPopup.openPopup();
@@ -80,16 +80,27 @@ buttonAdd.addEventListener( 'click', () => {
 const popupSignIn = document.querySelector('.popup_sign-in');
 const buttonSignIn = document.querySelector('.account__sign-in');
 
-let signInPopup = new PopupManager(popupSignIn);
+const signInPopup = new PopupManager(popupSignIn);
 
 buttonSignIn.addEventListener( 'click', () => {
   signInPopup.openPopup();
 });
+
+//Ошибка при не ответе сервера
+const popupError = document.querySelector('.popup_error');
+
+const errorPopup = new PopupManager(popupError);
+
+//Успешная регистрация
+const popupSuccess = document.querySelector('.popup_success');
+
+const successPopup = new PopupManager(popupSuccess);
+
 //Регистрация
 const popupRegistration = document.querySelector('.popup_registration');
 const buttonRegistration = document.querySelector('.account__registration');
 
-let registrationPopup = new PopupManager(popupRegistration);
+const registrationPopup = new PopupManager(popupRegistration);
 
 buttonRegistration.addEventListener( 'click', () => {
   registrationPopup.openPopup();
@@ -175,11 +186,48 @@ const addForm = new FormConstructor({
     submitSelector: '.popup__submit',
   }
 });
+      //Запустить fetch => дождаться then или catch => из then вызывается фун-ия onRegistrComplete, показывает попапы успеха или нет
+            //При входе тоже fetch => --//-- => onLoginComplete => получаем id => дальше в then запрашиваем пользователя по id => onGetUser суем то что снизу
 
+      // auth.setupUser(registrationForm.getValues());
+      // auth.onSetupUser(registrationForm.getValues());
+      // profile.onSubmit(registrationForm.getValues());
 
 //Форма входа
 const signInForm = new FormConstructor({
   onSubmit: () => {
+
+    fetch('http://localhost:8200/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(signInForm.getValues())
+
+    }).then((response) => {
+      if (response.ok) {
+        return response.json().then((responseBody) => {
+          console.log(responseBody);
+          fetch('http://localhost:8200/user/' + responseBody.userId, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+          }).then((response) => {
+            if (response.ok) {
+              return response.json().then((responseBody) => {
+                auth.setupUser(responseBody.user);
+                auth.onSetupUser(responseBody.user);
+                profile.setupProfileData(responseBody.user);
+              })
+            }
+          })
+        })
+      }
+    }).catch(() => {
+      errorPopup.openPopup();
+      console.log('Сервер сломался!');
+    });
     
     signInPopup.closePopup();
   },
@@ -220,12 +268,27 @@ exitButton.addEventListener('click', () => {
 //Форма регистрации
 const registrationForm = new FormConstructor({
   onSubmit: () => {
-            
-      auth.setupUser(registrationForm.getValues());
-      auth.onSetupUser(registrationForm.getValues());
-      profile.onSubmit(registrationForm.getValues());
+    
+    fetch('http://localhost:8200/user/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(registrationForm.getValues())
+
+    }).then((response) => {
+      if (response.ok) {
+        return response.json().then((responseBody) => {
+          successPopup.openPopup();
+          console.log('USER', responseBody);
+        });
+      }
+    }).catch(() => {
+      errorPopup.openPopup();
+      console.log('Сервер сломался!');
+    });
       
-      registrationPopup.closePopup();
+    registrationPopup.closePopup();
   },
   
   rules: {

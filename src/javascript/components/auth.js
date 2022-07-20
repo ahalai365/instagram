@@ -37,23 +37,7 @@ export class Auth {
   }
 
   onSetupUser(callback){
-    fetch('http://localhost:8200/user/register', {
-      method: 'POST', // POST PUT PATCH DELETE UPDATE OPTIONS HEAD
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(callback)
-
-    }).then((response) => {
-      if (response.ok) { // Status: 200
-        return response.json().then(responseBody => { // { success: true/false, error?, userId? }
-          console.log('USER', responseBody);
-        });
-      }
-      
-    }).catch(() => {
-      console.log('Сервер сломался!');
-    });
+    
   }
 
   logOut() {
