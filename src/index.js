@@ -8,6 +8,8 @@ import { PopupManager } from './javascript/components/popup.js';
 import { Profile } from './javascript/components/profile.js';
 import { Auth } from './javascript/components/auth.js';
 
+// api.loginUser({ login: ..., password: ... }).then((id) => api.getUser(id)).then(user => { console.log(user) })
+
 //Создание карточек
 const data = [
   {
@@ -186,14 +188,29 @@ const addForm = new FormConstructor({
     submitSelector: '.popup__submit',
   }
 });
-      //Запустить fetch => дождаться then или catch => из then вызывается фун-ия onRegistrComplete, показывает попапы успеха или нет
-            //При входе тоже fetch => --//-- => onLoginComplete => получаем id => дальше в then запрашиваем пользователя по id => onGetUser суем то что снизу
-
-      // auth.setupUser(registrationForm.getValues());
-      // auth.onSetupUser(registrationForm.getValues());
-      // profile.onSubmit(registrationForm.getValues());
 
 //Форма входа
+function onLoginComplete(responseBody) {
+  fetch('http://localhost:8200/user/' + responseBody.userId, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  }).then((response) => {
+    if (response.ok) {
+      return response.json().then((responseBody) => {
+        onGetUser(responseBody);
+      })
+    }
+  })
+}
+
+function onGetUser(responseBody) {
+  auth.setupUser(responseBody.user);
+  auth.onSetupUser(responseBody.user);
+  profile.setupProfileData(responseBody.user);
+}
+
 const signInForm = new FormConstructor({
   onSubmit: () => {
 
@@ -207,26 +224,13 @@ const signInForm = new FormConstructor({
     }).then((response) => {
       if (response.ok) {
         return response.json().then((responseBody) => {
-          console.log(responseBody);
-          fetch('http://localhost:8200/user/' + responseBody.userId, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-          }).then((response) => {
-            if (response.ok) {
-              return response.json().then((responseBody) => {
-                auth.setupUser(responseBody.user);
-                auth.onSetupUser(responseBody.user);
-                profile.setupProfileData(responseBody.user);
-              })
-            }
-          })
+          onLoginComplete(responseBody);
         })
       }
     }).catch(() => {
       errorPopup.openPopup();
       console.log('Сервер сломался!');
+      signInPopup.closePopup();
     });
     
     signInPopup.closePopup();
@@ -266,6 +270,11 @@ exitButton.addEventListener('click', () => {
 });
 
 //Форма регистрации
+function onRegistrComplete(responseBody) {
+  successPopup.openPopup();
+  console.log('USER', responseBody);
+}
+
 const registrationForm = new FormConstructor({
   onSubmit: () => {
     
@@ -279,13 +288,13 @@ const registrationForm = new FormConstructor({
     }).then((response) => {
       if (response.ok) {
         return response.json().then((responseBody) => {
-          successPopup.openPopup();
-          console.log('USER', responseBody);
+          onRegistrComplete(responseBody);
         });
       }
     }).catch(() => {
       errorPopup.openPopup();
       console.log('Сервер сломался!');
+      registrationPopup.closePopup();
     });
       
     registrationPopup.closePopup();
