@@ -15,7 +15,9 @@ export class Auth {
   };
 
   setupUser(user){
-    if(user) {
+    this._user = user;
+
+    if(this._user) {
       this.signInElement.classList.remove(ACCOUNT_ACTIVE_CLASS);
       this.registrationElement.classList.remove(ACCOUNT_ACTIVE_CLASS);
 
@@ -36,11 +38,7 @@ export class Auth {
     }
   }
 
-  onSetupUser(callback){
-    
-  }
-
   logOut() {
-    return this._user = null;
+    this.setupUser(null);
   }
 };

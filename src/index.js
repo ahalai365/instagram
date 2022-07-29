@@ -7,8 +7,8 @@ import { FormConstructor } from './javascript/components/form.js'
 import { PopupManager } from './javascript/components/popup.js';
 import { Profile } from './javascript/components/profile.js';
 import { Auth } from './javascript/components/auth.js';
-
-// api.loginUser({ login: ..., password: ... }).then((id) => api.getUser(id)).then(user => { console.log(user) })
+import { api } from './javascript/utils/api.js';
+import { SessionManager } from './javascript/components/session-manager.js';
 
 //Создание карточек
 const data = [
@@ -75,6 +75,7 @@ const buttonAdd = document.querySelector('.profile__add');
 const addPopup = new PopupManager(popupAdd);
 
 buttonAdd.addEventListener( 'click', () => {
+  addPopup.clearInputs();
   addPopup.openPopup();
 });
 
@@ -85,6 +86,7 @@ const buttonSignIn = document.querySelector('.account__sign-in');
 const signInPopup = new PopupManager(popupSignIn);
 
 buttonSignIn.addEventListener( 'click', () => {
+  signInForm.clearInputs();
   signInPopup.openPopup();
 });
 
@@ -105,6 +107,7 @@ const buttonRegistration = document.querySelector('.account__registration');
 const registrationPopup = new PopupManager(popupRegistration);
 
 buttonRegistration.addEventListener( 'click', () => {
+  registrationForm.clearInputs();
   registrationPopup.openPopup();
 });
 
@@ -191,49 +194,26 @@ const addForm = new FormConstructor({
 
 //Форма входа
 function onLoginComplete(responseBody) {
-  fetch('http://localhost:8200/user/' + responseBody.userId, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  }).then((response) => {
-    if (response.ok) {
-      return response.json().then((responseBody) => {
-        onGetUser(responseBody);
-      })
+  api.getUser(responseBody.userId).then((responseBody) => {
+      return onGetUser(responseBody);
     }
-  })
+  )
 }
 
 function onGetUser(responseBody) {
   auth.setupUser(responseBody.user);
-  auth.onSetupUser(responseBody.user);
   profile.setupProfileData(responseBody.user);
 }
 
 const signInForm = new FormConstructor({
   onSubmit: () => {
-
-    fetch('http://localhost:8200/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(signInForm.getValues())
-
-    }).then((response) => {
-      if (response.ok) {
-        return response.json().then((responseBody) => {
-          onLoginComplete(responseBody);
-        })
-      }
-    }).catch(() => {
+    sessionManager.login(signInForm.getValues()
+    ).catch(() => {
       errorPopup.openPopup();
       console.log('Сервер сломался!');
+    }).then(() => {
       signInPopup.closePopup();
     });
-    
-    signInPopup.closePopup();
   },
 
   rules: {
@@ -266,7 +246,7 @@ const signInForm = new FormConstructor({
 //Выход из аккаунта
 const exitButton = document.querySelector('.account__exit');
 exitButton.addEventListener('click', () => {
-  auth.setupUser(auth.logOut());
+  auth.logOut();
 });
 
 //Форма регистрации
@@ -277,27 +257,16 @@ function onRegistrComplete(responseBody) {
 
 const registrationForm = new FormConstructor({
   onSubmit: () => {
-    
-    fetch('http://localhost:8200/user/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(registrationForm.getValues())
-
-    }).then((response) => {
-      if (response.ok) {
-        return response.json().then((responseBody) => {
-          onRegistrComplete(responseBody);
-        });
-      }
+    api.register(
+      registrationForm.getValues()
+    ).then((responseBody) => {
+      onRegistrComplete(responseBody);
     }).catch(() => {
       errorPopup.openPopup();
       console.log('Сервер сломался!');
+    }).then(() => {
       registrationPopup.closePopup();
     });
-      
-    registrationPopup.closePopup();
   },
   
   rules: {
@@ -398,3 +367,6 @@ const profile = new Profile({
     authSelector: '.account__auth',
   }
 });
+
+const sessionManager = new SessionManager(auth, profile);
+sessionManager.start;

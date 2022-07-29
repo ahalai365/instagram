@@ -13,13 +13,7 @@ export class FormConstructor {
     this.getValuesCb = () => this.getValues();
 
     this._inputManagers = this.inputElement.forEach((currentInput) => {
-      new InputManager(
-        currentInput,
-        new InputValidator(
-          rules[currentInput.name],
-          currentInput.name, this.getValuesCb),
-          this.chooseSubmitButtonStateCb
-        );
+      new InputManager(currentInput, new InputValidator(rules[currentInput.name], currentInput.name, this.getValuesCb), this.chooseSubmitButtonStateCb);
     });
 
     this._form.addEventListener('submit', (e) => {
@@ -52,5 +46,11 @@ export class FormConstructor {
     });
   
     return result;
+  }
+
+  clearInputs() {
+    this.inputElement.forEach((currentInput) => {
+      currentInput.value = '';
+    })
   }
 }
