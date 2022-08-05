@@ -9,19 +9,28 @@ export class SessionManager {
   }
 
   start() {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      this._setupUser(JSON.parse(userData));
+    const token = localStorage.getItem('token');
+    api.setupAuthToken(token);
+    if (token) {
+      api.getUser().then((responseBody) => {
+        return this._setupUser(responseBody.user);
+      });
     }
   }
 
   _setupUser(user) {
-    this._auth.setupUser(user);
-    this._profile.setupProfileData(user);
     if (user) {
-      localStorage.setItem('user', JSON.stringify(user));
+      this._auth.setupUser(user);
+      this._profile.setupProfileData(user);
+    }
+  }
+
+  _setupToken(token) {
+    if (token) {
+      api.setupAuthToken(`Bearer ${token}`);
+      localStorage.setItem('token', `Bearer ${token}`);
     } else {
-      localStorage.removeItem('user');
+      localStorage.removeItem('token');
     }
   }
 
@@ -29,9 +38,22 @@ export class SessionManager {
     return api.login(
       data
     ).then((responseBody) => {
-      return api.getUser(responseBody.userId);
+      const token = responseBody.token;
+      this._setupToken(token);
+      return api.getUser();
     }).then((responseBody) => {
       return this._setupUser(responseBody.user);
     })
+  }
+
+  logout() {
+    const cards = document.querySelectorAll('.element');
+    cards.forEach(function (e) {
+      e.parentElement.removeChild(e);
+    });
+
+    this._auth.logout();
+    this._setupUser(null);
+    this._setupToken(null);
   }
 }

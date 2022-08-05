@@ -1,14 +1,23 @@
 class Api {
   constructor(baseUrl) {
     this._baseUrl = baseUrl;
+    this._headers = {
+      'Content-Type': 'application/json'
+    };
+  }
+
+  setupAuthToken(token) {
+    if (token) {
+      this._headers.Authorization = `${token}`;
+    } else {
+      delete this._headers.Authorization;
+    }
   }
 
   _get(url) {
     return fetch(url, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       }).then((response) => {
         return this._processResponse(response)});
   }
@@ -16,9 +25,7 @@ class Api {
   _post(url, body) {
     return fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify(body)
     }).then((response) => {
       return this._processResponse(response)});
@@ -33,7 +40,6 @@ class Api {
   }
 
   login(loginData) {
-    console.log('data', loginData)
     return this._post(`${this._baseUrl}/user/login`, loginData)
   }
 
@@ -41,8 +47,17 @@ class Api {
     return this._post(`${this._baseUrl}/user/register`, registerData);
   }
 
-  getUser(userId) {
-    return this._get(`${this._baseUrl}/user/` + userId);
+  getUser() {
+    return this._get(`${this._baseUrl}/user/profile`);
+  }
+
+  getAllcards() {
+    return this._get(`${this._baseUrl}/cards`);
+  }
+
+  createCard(data) {
+    console.log('data create', data);
+    return this._post(`${this._baseUrl}/cards`, data);
   }
 }
 

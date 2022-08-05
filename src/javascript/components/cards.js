@@ -2,9 +2,9 @@
 const LIKE_ACTIVE_CLASS = 'element__like_active';
 
 export class Card {
-  constructor({ title, src }, templateSelector) {
+  constructor({ title, url }, templateSelector) {
     this._title = title;
-    this._src = src;
+    this._src = url;
     this._clickCallback = () => {};
     
     this._element = document.querySelector(templateSelector).content.querySelector('.element').cloneNode(true);
@@ -12,7 +12,7 @@ export class Card {
     const elementImage = this._element.querySelector('.element__img');
     const elementTitle = elementFooter.querySelector('.element__title');
 
-    elementImage.setAttribute('src', src);
+    elementImage.setAttribute('src', url);
     elementImage.setAttribute('alt', title);
     elementTitle.textContent = title;
 

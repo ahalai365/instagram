@@ -1,5 +1,6 @@
 .element__img {
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
     cursor: pointer;
+    min-height: 300px;
 }

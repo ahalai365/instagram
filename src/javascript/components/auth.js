@@ -38,7 +38,7 @@ export class Auth {
     }
   }
 
-  logOut() {
+  logout() {
     this.setupUser(null);
   }
 };

@@ -10,34 +10,6 @@ import { Auth } from './javascript/components/auth.js';
 import { api } from './javascript/utils/api.js';
 import { SessionManager } from './javascript/components/session-manager.js';
 
-//Создание карточек
-const data = [
-  {
-    title: 'Карачаевск',
-    src: require('./images/1.png')
-  },
-  {
-    title: 'Гора Эльбрус',
-    src: require('./images/2.png')
-  },
-  {
-    title: 'Домбай',
-    src: require('./images/3.png')
-  },
-  {
-    title: 'Гора Эльбрус',
-    src: require('./images/2.png')
-  },
-  {
-    title: 'Домбай',
-    src: require('./images/3.png')
-  },
-  {
-    title: 'Карачаево-Черкесская Республика',
-    src: require('./images/1.png')
-  }
-]
-
 // Просмотр фотографий и создание карточек
 const CARD_TEMPLATE = '#element-template';
 
@@ -52,11 +24,17 @@ function handleClickCard(src) {
   viewPopup.openPopup();
 }
 
-data.forEach((cardData) => {
-  const card = new Card(cardData, CARD_TEMPLATE);
-  card.onClick(handleClickCard);
-  ELEMENTS.append(card.render());
-});
+function loadCards() {
+  api.getAllcards().then((cards) => {
+    cards.forEach((cardData) => {
+      const card = new Card(cardData, CARD_TEMPLATE);
+      card.onClick(handleClickCard);
+      ELEMENTS.append(card.render());
+    });
+  })
+}
+
+// loadCards();
 
 //Изменение профиля
 const popupEdit = document.querySelector('.popup_edit');
@@ -75,7 +53,7 @@ const buttonAdd = document.querySelector('.profile__add');
 const addPopup = new PopupManager(popupAdd);
 
 buttonAdd.addEventListener( 'click', () => {
-  addPopup.clearInputs();
+  addForm.clearInputs();
   addPopup.openPopup();
 });
 
@@ -153,12 +131,17 @@ const editForm = new FormConstructor({
 });
 
 const addForm = new FormConstructor({
-  onSubmit: (result) => {
-    
-    const card = new Card(result, CARD_TEMPLATE);
-    card.onClick(handleClickCard);
-    ELEMENTS.append(card.render);
-    addPopup.closePopup();
+  onSubmit: () => {
+    console.log(addForm.getValues());
+    api.createCard( 
+      addForm.getValues() 
+    ).then((cardData) => {
+      console.log('addForm',cardData);
+      const card = new Card(cardData, CARD_TEMPLATE);
+      card.onClick(handleClickCard);
+      ELEMENTS.append(card.render());
+      addPopup.closePopup();
+    });
   },
 
   rules: {
@@ -173,7 +156,7 @@ const addForm = new FormConstructor({
       },
     },
 
-    browse: {
+    url: {
       isRequired: true,
       empty: {
         message: 'Укажите адрес изображения'
@@ -193,18 +176,6 @@ const addForm = new FormConstructor({
 });
 
 //Форма входа
-function onLoginComplete(responseBody) {
-  api.getUser(responseBody.userId).then((responseBody) => {
-      return onGetUser(responseBody);
-    }
-  )
-}
-
-function onGetUser(responseBody) {
-  auth.setupUser(responseBody.user);
-  profile.setupProfileData(responseBody.user);
-}
-
 const signInForm = new FormConstructor({
   onSubmit: () => {
     sessionManager.login(signInForm.getValues()
@@ -212,6 +183,7 @@ const signInForm = new FormConstructor({
       errorPopup.openPopup();
       console.log('Сервер сломался!');
     }).then(() => {
+      loadCards();
       signInPopup.closePopup();
     });
   },
@@ -246,21 +218,20 @@ const signInForm = new FormConstructor({
 //Выход из аккаунта
 const exitButton = document.querySelector('.account__exit');
 exitButton.addEventListener('click', () => {
-  auth.logOut();
+  sessionManager.logout();
 });
 
 //Форма регистрации
-function onRegistrComplete(responseBody) {
+function onRegistrComplete() {
   successPopup.openPopup();
-  console.log('USER', responseBody);
 }
 
 const registrationForm = new FormConstructor({
   onSubmit: () => {
     api.register(
       registrationForm.getValues()
-    ).then((responseBody) => {
-      onRegistrComplete(responseBody);
+    ).then(() => {
+      onRegistrComplete();
     }).catch(() => {
       errorPopup.openPopup();
       console.log('Сервер сломался!');
