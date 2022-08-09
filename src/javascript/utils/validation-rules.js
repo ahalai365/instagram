@@ -24,5 +24,5 @@ export function validateMaxLength (value, MaxLength) {
 //валидация URL
 export function validateRegExp(string, rule) {
   var res = string.match(rule);
-  return (res !== null)
+  return (res !== null);
 };

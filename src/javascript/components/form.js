@@ -29,13 +29,12 @@ export class FormConstructor {
   }
 
   _chooseSubmitButtonState(targetForm) {
-  let error = targetForm.querySelector('.popup__input_invalid');
-
-  if (error) {
-    this.button.disabled = true;
-    return 
-  }
-  this.button.disabled = false;
+    let error = targetForm.querySelector('.popup__input_invalid');
+    if (error) {
+      this.button.disabled = true;
+      return 
+    }
+    this.button.disabled = false;
   }
 
   getValues() {
@@ -51,6 +50,6 @@ export class FormConstructor {
   clearInputs() {
     this.inputElement.forEach((currentInput) => {
       currentInput.value = '';
-    })
+    });
   }
 }

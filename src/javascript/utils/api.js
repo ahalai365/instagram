@@ -40,7 +40,7 @@ class Api {
   }
 
   login(loginData) {
-    return this._post(`${this._baseUrl}/user/login`, loginData)
+    return this._post(`${this._baseUrl}/user/login`, loginData);
   }
 
   register(registerData) {

@@ -12,9 +12,9 @@ export class Auth {
     this.registrationElement = document.querySelector(config.registrationSelector);
     this.authElement = document.querySelector(config.authSelector);
     this.exitElement = document.querySelector(config.exitSelector);
-  };
+  }
 
-  setupUser(user){
+  setupUser(user) {
     this._user = user;
 
     if(this._user) {

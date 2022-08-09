@@ -12,9 +12,9 @@ export class Card {
     const elementImage = this._element.querySelector('.element__img');
     const elementTitle = elementFooter.querySelector('.element__title');
 
-    elementImage.setAttribute('src', url);
-    elementImage.setAttribute('alt', title);
-    elementTitle.textContent = title;
+    elementImage.setAttribute('src', this._src);
+    elementImage.setAttribute('alt', this._title);
+    elementTitle.textContent = this._title;
 
     elementImage.addEventListener('click', () => {
       this._clickCallback(this._src);
@@ -25,7 +25,7 @@ export class Card {
     this._likeButton.addEventListener('click', this._likeClickHandler);
   }
 
-    _likeClickHandler = () => {
+  _likeClickHandler = () => {
       if (this._likeButton.classList.contains('element__like')) {
         if (this._likeButton.classList.contains(LIKE_ACTIVE_CLASS)) {
           this._likeButton.classList.remove(LIKE_ACTIVE_CLASS);
@@ -33,7 +33,7 @@ export class Card {
           this._likeButton.classList.add(LIKE_ACTIVE_CLASS);
         }
       }
-    }
+  }
   
   onClick(callback) {
       this._clickCallback = callback;

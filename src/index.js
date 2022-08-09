@@ -34,8 +34,6 @@ function loadCards() {
   })
 }
 
-// loadCards();
-
 //Изменение профиля
 const popupEdit = document.querySelector('.popup_edit');
 const buttonEdit = document.querySelector('.profile__edit');

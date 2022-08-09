@@ -47,10 +47,10 @@ export class SessionManager {
   }
 
   logout() {
-    const cards = document.querySelectorAll('.element');
-    cards.forEach(function (e) {
-      e.parentElement.removeChild(e);
-    });
+    // const cards = document.querySelectorAll('.element');
+    // cards.forEach((e) => {
+    //   e.parentElement.removeChild(e);
+    // });
 
     this._auth.logout();
     this._setupUser(null);
