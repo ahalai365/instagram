@@ -1,7 +1,7 @@
 export class Profile {
   constructor({ config }) {
     this.nameElement = document.querySelector(config.nameSelector);
-    this.discriptionElement = document.querySelector(config.discriptionSelector);
+    this.descriptionElement = document.querySelector(config.descriptionSelector);
     this.avatarElement = document.querySelector(config.avatarSelector);
     this.authElement = document.querySelector(config.authSelector);
 
@@ -10,7 +10,7 @@ export class Profile {
 
   setupProfileData(result) {
     this.nameElement.textContent = result.name;
-    this.discriptionElement.textContent = result.discription;
+    this.descriptionElement.textContent = result.description;
     this.avatarElement.setAttribute('src', result.avatar);
     this.authElement.textContent = result.email;
   }

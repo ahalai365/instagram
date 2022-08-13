@@ -4,18 +4,17 @@ export class SessionManager {
   constructor(auth, profile) {
     this._auth = auth;
     this._profile = profile;
-
-    this.start();
   }
 
   start() {
     const token = localStorage.getItem('token');
     api.setupAuthToken(token);
     if (token) {
-      api.getUser().then((responseBody) => {
+      return api.getUser().then((responseBody) => {
         return this._setupUser(responseBody.user);
       });
     }
+    return Promise.resolve();
   }
 
   _setupUser(user) {
@@ -30,6 +29,7 @@ export class SessionManager {
       api.setupAuthToken(`Bearer ${token}`);
       localStorage.setItem('token', `Bearer ${token}`);
     } else {
+      api.setupAuthToken();
       localStorage.removeItem('token');
     }
   }
@@ -47,11 +47,6 @@ export class SessionManager {
   }
 
   logout() {
-    // const cards = document.querySelectorAll('.element');
-    // cards.forEach((e) => {
-    //   e.parentElement.removeChild(e);
-    // });
-
     this._auth.logout();
     this._setupUser(null);
     this._setupToken(null);

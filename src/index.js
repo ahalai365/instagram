@@ -28,11 +28,18 @@ function loadCards() {
   api.getAllcards().then((cards) => {
     cards.forEach((cardData) => {
       const card = new Card(cardData, CARD_TEMPLATE);
+      auth.onChangeUser((currentUser) => {
+        card.notifyUser(currentUser);
+      });
       card.onClick(handleClickCard);
       ELEMENTS.append(card.render());
     });
-  })
+  }).catch(() => {
+    console.log('войдите');
+  });
 }
+
+// loadCards();
 
 //Изменение профиля
 const popupEdit = document.querySelector('.popup_edit');
@@ -109,7 +116,7 @@ const editForm = new FormConstructor({
       }
     },
     
-    discription: {
+    description: {
       isRequired: true,
       empty: {
         message: 'Укажите профессию'
@@ -130,11 +137,9 @@ const editForm = new FormConstructor({
 
 const addForm = new FormConstructor({
   onSubmit: () => {
-    console.log(addForm.getValues());
     api.createCard( 
       addForm.getValues() 
     ).then((cardData) => {
-      console.log('addForm',cardData);
       const card = new Card(cardData, CARD_TEMPLATE);
       card.onClick(handleClickCard);
       ELEMENTS.append(card.render());
@@ -287,7 +292,7 @@ const registrationForm = new FormConstructor({
       }
     },
 
-    discription: {
+    description: {
       isRequired: true,
       empty: {
         message: 'Укажите профессию'
@@ -320,7 +325,7 @@ const registrationForm = new FormConstructor({
 
 const auth = new Auth({
   config: {
-    contentSelector: '.content',
+    profileSelector: '.profile',
     signInSelector: '.account__sign-in',
     registrationSelector: '.account__registration',
     authSelector: '.account__auth',
@@ -331,11 +336,14 @@ const auth = new Auth({
 const profile = new Profile({
   config: {
     nameSelector: '.profile__name',
-    discriptionSelector: '.profile__subtitle',
+    descriptionSelector: '.profile__subtitle',
     avatarSelector: '.profile__avatar',
     authSelector: '.account__auth',
   }
 });
 
 const sessionManager = new SessionManager(auth, profile);
-sessionManager.start;
+sessionManager.start().then(() => {
+  
+  loadCards();
+});

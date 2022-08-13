@@ -56,8 +56,11 @@ class Api {
   }
 
   createCard(data) {
-    console.log('data create', data);
     return this._post(`${this._baseUrl}/cards`, data);
+  }
+
+  likeCard(cardId) {
+    return this._post(`${this._baseUrl}/cards/like`, { cardId });
   }
 }
 

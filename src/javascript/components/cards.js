@@ -1,10 +1,13 @@
+import { api } from "../utils/api";
+
 // Создание фотокарточек через шаблон (template)
 const LIKE_ACTIVE_CLASS = 'element__like_active';
 
 export class Card {
-  constructor({ title, url }, templateSelector) {
-    this._title = title;
-    this._src = url;
+  constructor(cardData, templateSelector) {
+    this._cardData = cardData;
+    this._title = cardData.title;
+    this._src = cardData.url;
     this._clickCallback = () => {};
     
     this._element = document.querySelector(templateSelector).content.querySelector('.element').cloneNode(true);
@@ -22,17 +25,35 @@ export class Card {
 
     this._likeButton = this._element.querySelector('.element__like');
 
+    this._likeCountElement = this._element.querySelector('.element__count');
+    this._likeCountElement.textContent = cardData.likes.length;
+
     this._likeButton.addEventListener('click', this._likeClickHandler);
   }
 
+  notifyUser(user) {
+    this._activeUser = user;
+    this._rerenderLike();
+  }
+
+  _rerenderLike() {
+    const likesCount = this._cardData.likes.length;
+    this._likeCountElement.innerText = likesCount;
+    
+    const hasCurrentUserLike = this._cardData.likes.includes(this._activeUser ? this._activeUser.id : null);
+    
+    if (hasCurrentUserLike) {
+      this._likeButton.classList.add(LIKE_ACTIVE_CLASS);
+    } else {
+      this._likeButton.classList.remove(LIKE_ACTIVE_CLASS);
+    }
+  }
+
   _likeClickHandler = () => {
-      if (this._likeButton.classList.contains('element__like')) {
-        if (this._likeButton.classList.contains(LIKE_ACTIVE_CLASS)) {
-          this._likeButton.classList.remove(LIKE_ACTIVE_CLASS);
-        } else {
-          this._likeButton.classList.add(LIKE_ACTIVE_CLASS);
-        }
-      }
+    api.likeCard(this._cardData.id).then((response) => {
+      this._cardData = response.card;
+      this._rerenderLike();
+    });
   }
   
   onClick(callback) {
