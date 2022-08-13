@@ -186,7 +186,7 @@ const signInForm = new FormConstructor({
       errorPopup.openPopup();
       console.log('Сервер сломался!');
     }).then(() => {
-      loadCards();
+      // loadCards();
       signInPopup.closePopup();
     });
   },
