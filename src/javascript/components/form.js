@@ -52,4 +52,14 @@ export class FormConstructor {
       currentInput.value = '';
     });
   }
+
+  inputChanger() {
+    const profileName = document.querySelector('.profile__name');
+    const profileDescription = document.querySelector('.profile__subtitle');
+    const inputName = this.inputElement[0];
+    const inputDescription = this.inputElement[1];
+
+    inputName.value = profileName.textContent;
+    inputDescription.value = profileDescription.textContent;
+  }
 }

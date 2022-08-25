@@ -14,6 +14,15 @@ class Api {
     }
   }
 
+  _delete(url, body) {
+    return fetch(url, {
+      method: 'DELETE',
+      headers: this._headers,
+      body: JSON.stringify(body)
+    }).then((response) => {
+      return this._processResponse(response)});
+  }
+
   _get(url) {
     return fetch(url, {
       method: 'GET',
@@ -35,7 +44,7 @@ class Api {
     if (response.ok) {
       return response.json()
     } else {
-      return Promise.reject
+      return Promise.reject()
     }
   }
 
@@ -61,6 +70,10 @@ class Api {
 
   likeCard(cardId) {
     return this._post(`${this._baseUrl}/cards/like`, { cardId });
+  }
+
+  deleteCard(cardId) {
+    return this._delete(`${this._baseUrl}/cards`, { cardId });
   }
 }
 

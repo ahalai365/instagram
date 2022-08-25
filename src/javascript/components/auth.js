@@ -16,6 +16,7 @@ export class Auth {
 
   onChangeUser(cb) {
     this._cbs.push(cb);
+    cb(this._user);
   }
 
   setupUser(user) {

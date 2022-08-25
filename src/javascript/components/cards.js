@@ -24,11 +24,13 @@ export class Card {
     });
 
     this._likeButton = this._element.querySelector('.element__like');
+    this._likeButton.addEventListener('click', this._likeClickHandler);
 
     this._likeCountElement = this._element.querySelector('.element__count');
     this._likeCountElement.textContent = cardData.likes.length;
 
-    this._likeButton.addEventListener('click', this._likeClickHandler);
+    this._deleteButton = this._element.querySelector('.element__delete');
+    this._deleteButton.addEventListener('click', this._deleteClickHandler);
   }
 
   notifyUser(user) {
@@ -62,5 +64,13 @@ export class Card {
 
   render() {
    return this._element;
+  }
+
+  _deleteClickHandler = () => {
+    api.deleteCard(this._cardData.id).then(() => { 
+      this._element.remove();
+    }).catch(() => {
+      console.log('Чужая фотокарточка!');
+    });
   }
 }

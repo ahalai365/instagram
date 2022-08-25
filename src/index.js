@@ -34,12 +34,8 @@ function loadCards() {
       card.onClick(handleClickCard);
       ELEMENTS.append(card.render());
     });
-  }).catch(() => {
-    console.log('войдите');
   });
 }
-
-// loadCards();
 
 //Изменение профиля
 const popupEdit = document.querySelector('.popup_edit');
@@ -48,6 +44,7 @@ const buttonEdit = document.querySelector('.profile__edit');
 const profilePopup = new PopupManager(popupEdit);
 
 buttonEdit.addEventListener( 'click', () => {
+  editForm.inputChanger();
   profilePopup.openPopup();
 });
 
