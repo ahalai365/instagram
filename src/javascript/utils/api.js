@@ -75,6 +75,10 @@ class Api {
   deleteCard(cardId) {
     return this._delete(`${this._baseUrl}/cards`, { cardId });
   }
+
+  updateUser(updateData) {
+    return this._post(`${this._baseUrl}/user/update`, updateData);
+  }
 }
 
 export const api = new Api(`http://localhost:8200`);

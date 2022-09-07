@@ -4,8 +4,6 @@ export class Profile {
     this.descriptionElement = document.querySelector(config.descriptionSelector);
     this.avatarElement = document.querySelector(config.avatarSelector);
     this.authElement = document.querySelector(config.authSelector);
-
-    this.onsubmitCb = () => this.onSubmit;
   }
 
   setupProfileData(result) {
@@ -13,5 +11,20 @@ export class Profile {
     this.descriptionElement.textContent = result.description;
     this.avatarElement.setAttribute('src', result.avatar);
     this.authElement.textContent = result.email;
+  }
+
+  onSubmit(values) {
+    this.nameElement.textContent = values.name;
+    this.descriptionElement.textContent = values.description;
+  }
+
+  updateUser(userData, newUserData) {
+    userData.name = newUserData.name;
+    userData.description = newUserData.description;
+
+    //в будущем может пригодиться
+    // userData.avatar = newUserData.avatar;
+    
+    return userData
   }
 }

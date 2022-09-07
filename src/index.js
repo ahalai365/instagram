@@ -93,8 +93,13 @@ buttonRegistration.addEventListener( 'click', () => {
 
 const editForm = new FormConstructor({
   onSubmit: () => {
-    profile.onSubmit(editForm.getValues());
-    profilePopup.closePopup();
+    api.getUser().then((response) => {
+      const newData = profile.updateUser(response.user, editForm.getValues());
+      api.updateUser(newData).then(() => {
+        profile.onSubmit(newData);
+        profilePopup.closePopup();
+      });
+    });
   },
 
   rules: {
@@ -341,6 +346,5 @@ const profile = new Profile({
 
 const sessionManager = new SessionManager(auth, profile);
 sessionManager.start().then(() => {
-  
   loadCards();
 });
