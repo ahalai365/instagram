@@ -53,8 +53,8 @@ export class Card {
 
   _likeClickHandler = () => {
     api.likeCard(this._cardData.id).then((response) => {
-      console.log(this._cardData);
       this._cardData = response.card;
+      console.log(this._cardData);
       this._rerenderLike();
     });
   }

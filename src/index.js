@@ -145,6 +145,9 @@ const addForm = new FormConstructor({
       const card = new Card(cardData, CARD_TEMPLATE);
       card.onClick(handleClickCard);
       ELEMENTS.append(card.render());
+      auth.onChangeUser((currentUser) => {
+        card.notifyUser(currentUser);
+      });
       addPopup.closePopup();
     });
   },
@@ -188,7 +191,6 @@ const signInForm = new FormConstructor({
       errorPopup.openPopup();
       console.log('Сервер сломался!');
     }).then(() => {
-      // loadCards();
       signInPopup.closePopup();
     });
   },
