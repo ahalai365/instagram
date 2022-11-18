@@ -5,6 +5,10 @@
 
     position: relative;
     z-index: 1;
+
+    font-family: 'Inter', sans-serif;
+    background-color: #000000;
+    color: #FFFFFF;
 }
 @media (max-width: 1080px) {
     .page {
