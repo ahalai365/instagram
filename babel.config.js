@@ -1,6 +1,4 @@
 const presets = [
-  // '@babel/react',
-  // '@babel/typescript',
   ['@babel/preset-env', { // какой пресет использовать
     targets: { // какие версии браузеров поддерживать
       edge: '17',
